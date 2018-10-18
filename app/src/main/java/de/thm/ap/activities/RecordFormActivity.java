@@ -69,6 +69,7 @@ public class RecordFormActivity extends AppCompatActivity {
     public void onSave(View view) {
         // validate user input
         String selectedName = moduleName.getSelectedItem().toString();
+        String selectedYear = year.getSelectedItem().toString();
         Boolean isValid = true;
 
         //isValid = false;
@@ -84,7 +85,7 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setHalfWeighted(halfweight);
             record.setMark(Integer.parseInt(mark.getText().toString()));
             record.setSummerTerm(term);
-            record.setYear(Integer.parseInt(year.getSelectedItem().toString()));
+            record.setYear(Integer.parseInt(selectedYear));
 
             // persist record and finish activity
             new RecordDAO(this).persist(record);
