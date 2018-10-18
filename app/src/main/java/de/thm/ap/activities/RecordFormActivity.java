@@ -25,6 +25,7 @@ This class contains to formula to enter a new record
 public class RecordFormActivity extends AppCompatActivity {
     private EditText moduleNum, creditPoints, mark; // ToDo Error Checking
     private ListView moduleName, year, semester;
+    private Boolean term, halfweight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,12 @@ public class RecordFormActivity extends AppCompatActivity {
             Record record = new Record();
             record.setModuleNum(moduleNum.getText().toString()); // text abrufen
             record.setModuleName(selectedName);
+            record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
+            record.setHalfWeighted(halfweight);
+            record.setMark(Integer.parseInt(mark.getText().toString()));
+            record.setSummerTerm(term);
+            record.setYear(Integer.parseInt(year.getSelectedItem().toString()));
+
             // persist record and finish activity
             new RecordDAO(this).persist(record);
             finish();
