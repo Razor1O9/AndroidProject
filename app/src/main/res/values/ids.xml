@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="module_num" type="id" />
+    <item name="records_list" type="id" />
+    <item name="records_list_empty" type="id" />
+    <item name="action_add" type="id" />
+    <item name="action_stats" type="id" />
+</resources>

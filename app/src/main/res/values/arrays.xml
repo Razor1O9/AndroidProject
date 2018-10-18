@@ -1,0 +1,9 @@
+<resources>
+    <string-array name="module_names">
+        <item>Grundlagen der Informatik</item>
+        <item>Rechnerarchitektur</item>
+        <item>Algorithmen &amp; Datenstrukturen</item>
+        <item>Objektorientierte Programmierung</item>
+        <item>Betriebssysteme</item>
+    </string-array>
+</resources>
