@@ -79,7 +79,7 @@ public class RecordFormActivity extends AppCompatActivity {
 
         {
             Record record = new Record();
-            record.setModuleNum(moduleNum.getText().toString()); // text abrufen
+            record.setModuleNum(Integer.parseInt(moduleNum.getText().toString())); // text abrufen
             record.setModuleName(selectedName);
             record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
             record.setHalfWeighted(halfweight);
