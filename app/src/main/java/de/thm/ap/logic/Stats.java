@@ -9,6 +9,8 @@ import java.util.List;
 import de.thm.ap.records.model.Record;
 
 public class Stats {
+    private final List<Record> records;
+
     // ToDo
     private int recordCount = 0; // Anzahl gespeicherte Leistung
     private int creditPointsSum = 0; // Summe CP
@@ -17,6 +19,7 @@ public class Stats {
     private int fiftyPercentCount = 0;// Anzahl 50% Module
 
     public Stats(List<Record> records) {
+        this.records = records;
     }
 
     public int getSumCrp() {
