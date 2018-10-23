@@ -69,11 +69,16 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-        Record record = new Record();
+        Record record = new Record("","", 0, false,false,0,0);
         // validate user input
         String selectedName = moduleName.toString();
         String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
+        Boolean selectedTerm = term.booleanValue();
+        Boolean selectedWeight = halfweight.booleanValue();
+        Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
+        Integer selectedMark = Integer.valueOf(mark.getText().toString());
+
         Boolean isValid = true;
 
         record.setModuleName(moduleName.getText().toString().trim());
