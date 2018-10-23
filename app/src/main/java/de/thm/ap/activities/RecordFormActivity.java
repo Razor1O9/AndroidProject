@@ -5,6 +5,7 @@ import android.os.Bundle;
 import de.thm.ap.R;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,7 +25,8 @@ import android.view.MenuItem;
 
 public class RecordFormActivity extends AppCompatActivity {
     private EditText moduleNum, creditPoints, mark;
-    private ListView moduleName, year, semester;
+    private AutoCompleteTextView moduleName;
+    private ListView year, semester;
     private Boolean term, halfweight;
 
     @Override
