@@ -19,8 +19,12 @@ public class Stats {
     public Stats(List<Record> records) {
     }
 
-    // CP Gesamt - Summe = Noch notwendig
-    public int getRemainingCreditPoints() {
+    public int getSumCrp() {
+        // ToDo
+        return 0;
+    }
+
+    public int getCrpToEnd() {  // CP Gesamt - Summe = Noch notwendig
         try {
             return requiredCreditPoints - creditPointsSum;
         } catch (NullPointerException e){
@@ -28,24 +32,14 @@ public class Stats {
         }
     }
 
-    public int getAverage () {
+    public int getSumHalfWeighted() {
+        // ToDo
+        return 0;
+    }
+
+    public int getAverageMark() {
         // ToDo: Return weighted avarage grade in percent
         return 0;
     }
 
-    public int getSumCrp() {
-    }
-
-    public int getCrpToEnd() {
-    }
-
-    public int getSumHalfWeighted() {
-    }
-
-    public int getAverageMark() {
-    }
-
-
-    // androidTest = In der app
-    // tet = JUnit
 }
