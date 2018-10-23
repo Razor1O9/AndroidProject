@@ -26,7 +26,7 @@ import android.view.MenuItem;
 public class RecordFormActivity extends AppCompatActivity {
     private EditText moduleNum, creditPoints, mark;
     private AutoCompleteTextView moduleName;
-    private ListView year, semester;
+    private ListView year;
     private Boolean term, halfweight;
 
     @Override
@@ -71,7 +71,8 @@ public class RecordFormActivity extends AppCompatActivity {
     public void onSave(View view) {
         Record record = new Record();
         // validate user input
-        String selectedName = semester.getSelectedItem().toString();
+        String selectedName = moduleName.toString();
+        String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
         Boolean isValid = true;
 
@@ -94,14 +95,15 @@ public class RecordFormActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            record = new Record();
-            record.setModuleName(selectedName); // text abrufen
+            record.setModuleNum(selectedNum);
             record.setModuleName(selectedName);
-            record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
-            record.setHalfWeighted(halfweight);
-            record.setMark(Integer.parseInt(mark.getText().toString()));
-            record.setSummerTerm(term);
             record.setYear(Integer.parseInt(selectedYear));
+            record.setHalfWeighted(halfweight);
+            record.setSummerTerm(term);
+            record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
+            record.setMark(Integer.parseInt(mark.getText().toString()));
+
+
 
             // persist record and finish activity
             new RecordDAO(this).persist(record);
