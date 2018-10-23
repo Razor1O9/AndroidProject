@@ -17,6 +17,9 @@ public class Record implements Serializable {
     private boolean summerTerm;
     private boolean halfWeight;
 
+    public Record(String cs1013, String objektorientierte_programmierung, int i, boolean b, boolean b1, int i1, int i2) {
+    }
+
     public void setModuleName(String data) {
         moduleName = data;
     }
