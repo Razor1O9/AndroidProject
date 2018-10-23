@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /*
-Records are being saved in this class and can be referenced when a new session starts.
+ / Records are being saved in this class and can be referenced when a new session starts.
  */
 
 public class RecordDAO {

@@ -1,7 +1,7 @@
 package de.thm.ap.logic;
 
 /*
-This class contains the logic to analyse and calculate performance records
+ / This class contains the logic to analyse and calculate performance records
  */
 
 import java.util.List;

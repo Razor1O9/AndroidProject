@@ -19,11 +19,11 @@ import java.util.Optional;
 import android.view.MenuItem;
 
 /*
-This class contains to formula to enter a new record
+ / This class contains to formula to enter a new record
  */
 
 public class RecordFormActivity extends AppCompatActivity {
-    private EditText moduleNum, creditPoints, mark; // ToDo Error Checking
+    private EditText moduleNum, creditPoints, mark;
     private ListView moduleName, year, semester;
     private Boolean term, halfweight;
 
@@ -67,19 +67,33 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
+        Record record = new Record();
         // validate user input
-        String selectedName = moduleName.getSelectedItem().toString();
+        String selectedName = semester.getSelectedItem().toString();
         String selectedYear = year.getSelectedItem().toString();
         Boolean isValid = true;
 
-        //isValid = false;
+        record.setModuleName(moduleName.getText().toString().trim());
+        if ("".equals(record.getModuleName())) {
+            moduleName.setError(getString(R.string.module_name_not_empty));
+            isValid = false;
+        }
+        if ("".equals(record.getModuleName())) {
+            moduleNum.setError(getString(R.string.module_number_not_empty));
+            isValid = false;
+        }
+        if ("".equals(record.getModuleName())) {
+            creditPoints.setError(getString(R.string.credit_points_not_empty));
+            isValid = false;
+        }
+        if ("".equals(record.getModuleName())) {
+            mark.setError(getString(R.string.mark_not_empty));
+            isValid = false;
+        }
 
-        // ToDo restlichen Fehler abfangen
-        if (isValid)
-
-        {
-            Record record = new Record();
-            record.setModuleNum(Integer.parseInt(moduleNum.getText().toString())); // text abrufen
+        if (isValid) {
+            record = new Record();
+            record.setModuleName(selectedName); // text abrufen
             record.setModuleName(selectedName);
             record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
             record.setHalfWeighted(halfweight);

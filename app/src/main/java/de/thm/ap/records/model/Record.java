@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Record implements Serializable {
     private String moduleName;
-    private double moduleNum;
+    private String moduleNum;
     private int id;
     private int year;
     private int crp;
@@ -17,8 +17,6 @@ public class Record implements Serializable {
     private boolean summerTerm;
     private boolean halfWeight;
 
-    public Record(String cs1013, String objektorientierte_programmierung, int i, boolean b, boolean b1, int i1, int i2) {
-    }
 
     public void setModuleName(String data) {
         moduleName = data;
@@ -28,11 +26,11 @@ public class Record implements Serializable {
         return moduleName;
     }
 
-    public void setModuleNum(double data) {
+    public void setModuleNum(String data) {
         moduleNum = data;
     }
 
-    public double getModuleNum() {
+    public String getModuleNum() {
         return moduleNum;
     }
 

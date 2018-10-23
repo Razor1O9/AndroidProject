@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.content.Intent;
 
 /*
-This class is the main class and displays all current records in a table
+ / This class is the main class and displays all current records in a table
  */
 
 public class RecordsActivity extends AppCompatActivity {
