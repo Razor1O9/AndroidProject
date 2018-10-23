@@ -4,7 +4,7 @@ package com.thm.ap.logic;
 This class contains the logic to analyse and calculate performance records
  */
 
-public class Statistic {
+public class Stats {
     // ToDo
     private int recordCount = 0; // Anzahl gespeicherte Leistung
     private int creditPointsSum = 0; // Summe CP
