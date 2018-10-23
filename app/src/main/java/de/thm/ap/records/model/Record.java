@@ -10,13 +10,23 @@ import java.io.Serializable;
 public class Record implements Serializable {
     private String moduleName;
     private String moduleNum;
-    private int id;
+    private int id; // not needed?
     private int year;
     private int crp;
     private int mark;
     private boolean summerTerm;
     private boolean halfWeight;
 
+
+    public Record (String moduleNum, String moduleName, int year, boolean summerTerm, boolean halfWeight, int crp, int mark){
+        this.moduleNum = moduleNum;
+        this.moduleName = moduleName;
+        this.year = year;
+        this.summerTerm = summerTerm;
+        this.halfWeight = halfWeight;
+        this.crp = crp;
+        this.mark = mark;
+    }
 
     public void setModuleName(String data) {
         moduleName = data;
