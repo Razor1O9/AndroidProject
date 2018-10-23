@@ -44,11 +44,14 @@ public class Record implements Serializable {
         return moduleNum;
     }
 
-    public void setID(int inputID) {
-        id = inputID;
-    }
+    //public void setID(int inputID) {
+    //    id = inputID;
+    //}
 
-    public int getId() {
+    /*
+    ToDo Datenbank-Zugriff und Primärschlüssel abrufen über RecordDAO
+     */
+    public Integer getId() {
         return id;
     }
 
