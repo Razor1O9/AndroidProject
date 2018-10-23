@@ -95,6 +95,7 @@ public class RecordFormActivity extends AppCompatActivity {
         }
 
         if (isValid) {
+
             record.setModuleNum(selectedNum);
             record.setModuleName(selectedName);
             record.setYear(Integer.parseInt(selectedYear));

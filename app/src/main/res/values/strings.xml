@@ -8,5 +8,9 @@
     <string name="module_name">Modulname</string>
     <string name="save">Speichern</string>
     <string name="drawable">"Test"</string>
+    <string name="module_name_not_empty">Kein Modulname hinterlegt</string>
+    <string name="module_number_not_empty">Keine Modulnummer hinterlegt</string>
+    <string name="credit_points_not_empty">Keine Creditpoints hinterlegt</string>
+    <string name="mark_not_empty">Keine Note hinterlegt</string>
 </resources>
 
