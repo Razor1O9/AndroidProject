@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">u1</string>
+    <string name="app_name">Leistungen</string>
     <string name="action_settings">Settings</string>
     <string name="add">Leistung anlegen</string>
     <string name="stats">Statistik</string>
