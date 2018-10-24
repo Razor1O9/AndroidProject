@@ -12,5 +12,7 @@
     <string name="module_number_not_empty">Keine Modulnummer hinterlegt</string>
     <string name="credit_points_not_empty">Keine Creditpoints hinterlegt</string>
     <string name="mark_not_empty">Keine Note hinterlegt</string>
+    <string name="credit_points_not_valid" />
+    <string name="mark_not_valid" />
 </resources>
 

@@ -65,12 +65,14 @@ public class RecordFormActivity extends AppCompatActivity {
         yearList.add(2008);
         yearList.add(2007);
 
+
         return yearList;
     }
 
     public void onSave(View view) {
         Record record = new Record("","", 0, false,false,0,0);
         // validate user input
+
         String selectedName = moduleName.toString();
         String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
@@ -96,6 +98,19 @@ public class RecordFormActivity extends AppCompatActivity {
         }
         if ("".equals(record.getModuleName())) {
             mark.setError(getString(R.string.mark_not_empty));
+            isValid = false;
+        }
+        if ((Integer.parseInt(String.valueOf(record.getMark())) != 3) |
+                (Integer.parseInt(String.valueOf(record.getMark())) != 6) |
+                (Integer.parseInt(String.valueOf(record.getMark())) != 9) |
+                (Integer.parseInt(String.valueOf(record.getMark())) != 30)){
+                    creditPoints.setError(getString(R.string.credit_points_not_valid));
+                    isValid = false;
+        }
+
+        if ((Integer.parseInt(String.valueOf(record.getMark())) < 50) | (Integer.parseInt(String.valueOf(record.getMark())) > 100)) {
+            isValid = false;
+            mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
 
