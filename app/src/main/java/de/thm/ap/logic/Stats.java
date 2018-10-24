@@ -34,13 +34,21 @@ public class Stats {
         return requiredCreditPoints - creditPointsSum;
     }
 
-    public int getSumHalfWeighted() {
+    /*public int getSumHalfWeighted() {
         int sumHalfWeighted = 0;
         for (Record recordItemHalf : records) {
             if (recordItemHalf.isHalfWeighted())
                 sumHalfWeighted += recordItemHalf.getCrp();
         }
         return sumHalfWeighted;
+    }*/
+
+    public int getSumHalfWeighted() {
+        for (Record recordItemHalf : records) {
+            if (recordItemHalf.isHalfWeighted())
+                fiftyPercentCount += 1;
+        }
+        return fiftyPercentCount;
     }
 
     public double getAverageMark() {

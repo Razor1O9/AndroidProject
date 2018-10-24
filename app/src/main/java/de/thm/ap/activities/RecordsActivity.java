@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 
 import de.thm.ap.R;
+import de.thm.ap.logic.Stats;
 import de.thm.ap.records.model.Record;
 import android.view.Menu;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import android.content.Intent;
 
 public class RecordsActivity extends AppCompatActivity {
     private ListView recordsListView;
+    private List<Record> records;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class RecordsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        List<Record> records= new RecordDAO(this).findAll();
+        records = new RecordDAO(this).findAll();
         ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, records);
         recordsListView.setAdapter(adapter);
     }
@@ -46,16 +48,26 @@ public class RecordsActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Stats statistics = new Stats(records);
         switch (item.getItemId()){
             case R.id.action_add:
-                Intent i = new Intent(this, RecordFormActivity.class);
-                startActivity(i);
-                return true;
+            Intent i = new Intent(this, RecordFormActivity.class);
+            startActivity(i);
+            return true;
             case R.id.action_stats:
-                AlertDialog.Builder stats = new AlertDialog.Builder(this);// ToDo AlertDialog anzeigen (Statistik.class Daten holen)
-                // neues stat Object anlegen und toString override
-                // stats.setMessage(stats.toString); // Inhalt des AltertDialog
-                // display stats
+            AlertDialog.Builder stats = new AlertDialog.Builder(this);
+            // ToDo AlertDialog anzeigen (Statistik.class Daten holen)
+            // neues stat Object anlegen und toString override
+            stats.setMessage(
+                        getString(R.string.statistics_header) + "\n" +
+                        getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
+                        getString(R.string.statistics_halfweight_record_count) + " " + statistics.getSumHalfWeighted() + "\n" +
+                        getString(R.string.statistics_sum) + " " +  statistics.getSumCrp() + "\n" +
+                        getString(R.string.statistics_crp_left) + " " + statistics.getCrpToEnd() + "\n" +
+                        getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
+
+                ); // Inhalt des AltertDialog
+            // display stats
         }
         return super.onOptionsItemSelected(item);
     }
