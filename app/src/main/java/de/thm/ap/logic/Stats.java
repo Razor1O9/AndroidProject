@@ -52,18 +52,16 @@ public class Stats {
         return fiftyPercentCount;
     }
 
-    public double getAverageMark() {
+    public int getAverageMark() {
         int averageMarkFullWeight = 0;
         int averageMarkHalfWeight = 0;
-        for (Record recordItem :
-                records) {
+        for (Record recordItem : records) {
             if (recordItem.isHalfWeighted())
                 averageMarkHalfWeight += recordItem.getCrp();
             else averageMarkFullWeight += recordItem.getCrp();
-            return ( (averageMarkFullWeight + (averageMarkHalfWeight*0.5) ) / records.size() );
         }
 
-        return 0;
+        return ( (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5) ) / records.size()) );
     }
 
 }
