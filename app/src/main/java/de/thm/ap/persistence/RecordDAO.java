@@ -40,7 +40,10 @@ public class RecordDAO {
     public Optional<Record> findById(int id) {
         // ToDo
         //records +
-        return null;
+        for (Record recordItem : records) {
+            if (recordItem.getId().equals(id))
+                return recordItem;
+        };
     }
     /**
      * Ersetzt das übergebene {@link Record} Objekt mit einem bereits gespeicherten {@link Record} Objekt mit gleicher id.
