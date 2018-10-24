@@ -49,7 +49,9 @@ public class RecordDAO {
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
      */
     public boolean update(Record record) {
-        // ToDo
+        if (findById(record.getId()) != null){
+            findById(record.getId()) = record;
+        }
         return true;
     }
     /**

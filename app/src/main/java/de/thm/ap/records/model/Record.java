@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Record implements Serializable {
     private String moduleName;
     private String moduleNum;
-    private int id; // not needed?
+    private int id;
     private int year;
     private int crp;
     private int mark;
