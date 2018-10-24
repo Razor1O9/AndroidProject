@@ -61,7 +61,7 @@ public class Stats {
             else averageMarkFullWeight += recordItem.getMark();
         }
 
-        return (int)Math.round(averageMarkFullWeight + (averageMarkHalfWeight*0.5) / (records.size() - (getSumHalfWeighted()*0.5) ));
+        return (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / (records.size() - (getSumHalfWeighted()*0.5) ));
     }
 
 }
