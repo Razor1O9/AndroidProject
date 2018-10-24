@@ -11,37 +11,49 @@ import de.thm.ap.records.model.Record;
 public class Stats {
     private final List<Record> records;
 
-    // ToDo
+    // ToDo Werte füllen
     private int recordCount = 0; // Anzahl gespeicherte Leistung
     private int creditPointsSum = 0; // Summe CP
     private int average = 0; // Durchschnittsnote
-    private int requiredCreditPoints; // Benötigte Gesammtsumme
     private int fiftyPercentCount = 0;// Anzahl 50% Module
+    public final int requiredCreditPoints  = 180;
 
     public Stats(List<Record> records) {
         this.records = records;
     }
 
     public int getSumCrp() {
-        // ToDo
-        return 0;
+        for (Record recordItem : records) {
+            creditPointsSum += recordItem.getCrp();
+        }
+        return creditPointsSum;
     }
 
-    public int getCrpToEnd() {  // CP Gesamt - Summe = Noch notwendig
-        try {
-            return requiredCreditPoints - creditPointsSum;
-        } catch (NullPointerException e){
-            throw new NullPointerException("no value for required credit points");
-        }
+    public int getCrpToEnd() {
+        // CP Gesamt - Summe = Noch benötigte Crps
+        return requiredCreditPoints - creditPointsSum;
     }
 
     public int getSumHalfWeighted() {
-        // ToDo
-        return 0;
+        int sumHalfWeighted = 0;
+        for (Record recordItemHalf : records) {
+            if (recordItemHalf.isHalfWeighted())
+                sumHalfWeighted += recordItemHalf.getCrp();
+        }
+        return sumHalfWeighted;
     }
 
-    public int getAverageMark() {
-        // ToDo: Return weighted avarage grade in percent
+    public double getAverageMark() {
+        int averageMarkFullWeight = 0;
+        int averageMarkHalfWeight = 0;
+        for (Record recordItem :
+                records) {
+            if (recordItem.isHalfWeighted())
+                averageMarkHalfWeight += recordItem.getCrp();
+            else averageMarkFullWeight += recordItem.getCrp();
+            return ( (averageMarkFullWeight + (averageMarkHalfWeight*0.5) ) / records.size() );
+        }
+
         return 0;
     }
 
