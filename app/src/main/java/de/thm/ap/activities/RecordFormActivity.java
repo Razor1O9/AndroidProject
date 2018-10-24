@@ -110,7 +110,6 @@ public class RecordFormActivity extends AppCompatActivity {
         }
 
         if ((Integer.parseInt(String.valueOf(record.getMark())) < 50) | (Integer.parseInt(String.valueOf(record.getMark())) > 100)) {
-            isValid = false;
             mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
