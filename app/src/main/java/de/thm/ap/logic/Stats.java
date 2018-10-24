@@ -31,7 +31,8 @@ public class Stats {
 
     public int getCrpToEnd() {
         // CP Gesamt - Summe = Noch benötigte Crps
-        return requiredCreditPoints - creditPointsSum;
+
+        return requiredCreditPoints - getSumCrp();
     }
 
     /*public int getSumHalfWeighted() {
