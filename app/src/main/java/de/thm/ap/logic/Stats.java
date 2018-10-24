@@ -57,8 +57,8 @@ public class Stats {
         int averageMarkHalfWeight = 0;
         for (Record recordItem : records) {
             if (recordItem.isHalfWeighted())
-                averageMarkHalfWeight += recordItem.getCrp();
-            else averageMarkFullWeight += recordItem.getCrp();
+                averageMarkHalfWeight += recordItem.getMark();
+            else averageMarkFullWeight += recordItem.getMark();
         }
 
         return (int)Math.round(averageMarkFullWeight + (averageMarkHalfWeight*0.5) / (records.size() - getSumHalfWeighted()*0.5));
