@@ -36,9 +36,9 @@ public class RecordDAO {
        Gibt Record mit der angegebenen ID zurück
        oder Null falls kein mit dieser ID gefunden wurde (=Optional)
        @return Record
+     // ToDo Fehlermeldung
      */
     public Optional<Record> findById(int id) {
-        // ToDo
         //records +
         for (Record recordItem : records) {
             if (recordItem.getId().equals(id))
@@ -50,6 +50,7 @@ public class RecordDAO {
      *
      * @param record
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
+     * // ToDo Fehlermeldung
      */
     public boolean update(Record record) {
         if (findById(record.getId()) != null){
@@ -87,7 +88,8 @@ public class RecordDAO {
     }
 
     /**
-     *
+     * Speichert die Records in eine Datei die record.obj heißt
+     * ToDo Funktionalität(?) und Einbindung
      */
     private void saveRecords() {
         try (FileOutputStream out = ctx.openFileOutput(FILE_NAME, Context.

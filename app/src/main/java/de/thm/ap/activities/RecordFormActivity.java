@@ -114,7 +114,7 @@ public class RecordFormActivity extends AppCompatActivity {
             mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
-
+        // ToDo restliche Fehler testen
         if (isValid) {
 
             record.setModuleNum(selectedNum);
