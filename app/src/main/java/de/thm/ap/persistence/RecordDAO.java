@@ -25,12 +25,21 @@ public class RecordDAO {
         this.ctx = ctx;
         initRecords();
     }
+    /**
+     * Kein Parameter, schlichter Aufruf.
+       @return Records
+     */
     public List<Record> findAll() {
-        // ToDo
-        return null;
+        return records;
     }
+    /**
+       Gibt Record mit der angegebenen ID zurück
+       oder Null falls kein mit dieser ID gefunden wurde (=Optional)
+       @return Record
+     */
     public Optional<Record> findById(int id) {
         // ToDo
+        //records +
         return null;
     }
     /**
@@ -71,6 +80,10 @@ public class RecordDAO {
             records = new ArrayList<>();
         }
     }
+
+    /**
+     *
+     */
     private void saveRecords() {
         try (FileOutputStream out = ctx.openFileOutput(FILE_NAME, Context.
                 MODE_PRIVATE)) {

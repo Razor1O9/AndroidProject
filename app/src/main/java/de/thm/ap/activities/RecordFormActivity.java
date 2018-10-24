@@ -80,6 +80,7 @@ public class RecordFormActivity extends AppCompatActivity {
         Boolean selectedWeight = halfweight.booleanValue();
         Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
         Integer selectedMark = Integer.valueOf(mark.getText().toString());
+        int id = 0;
 
         Boolean isValid = true;
 
@@ -123,6 +124,7 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setSummerTerm(term);
             record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
             record.setMark(Integer.parseInt(mark.getText().toString()));
+            record.setID(id);
 
 
 

@@ -44,9 +44,9 @@ public class Record implements Serializable {
         return moduleNum;
     }
 
-    //public void setID(int inputID) {
-    //    id = inputID;
-    //}
+    public void setID(int inputID) {
+        id = inputID;
+    }
 
     /*
     ToDo Datenbank-Zugriff und Primärschlüssel abrufen über RecordDAO
