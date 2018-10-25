@@ -36,14 +36,13 @@ public class RecordDAO {
        Gibt Record mit der angegebenen ID zurück
        oder Null falls kein mit dieser ID gefunden wurde (=Optional)
        @return Record
-     // ToDo Fehlermeldung
      */
     public Optional<Record> findById(int id) {
-        //records +
         for (Record recordItem : records) {
             if (recordItem.getId().equals(id))
-                return recordItem;
-        };
+                return Optional.of(recordItem);
+        }
+        return Optional.empty();
     }
     /**
      * Ersetzt das übergebene {@link Record} Objekt mit einem bereits gespeicherten {@link Record} Objekt mit gleicher id.
@@ -53,9 +52,9 @@ public class RecordDAO {
      * // ToDo Fehlermeldung
      */
     public boolean update(Record record) {
-        if (findById(record.getId()) != null){
-            findById(record.getId()) = record;
-        }
+        findById(record.getId()).ifPresent(
+                r -> {}
+        );
         return true;
     }
     /**
@@ -65,14 +64,25 @@ public class RecordDAO {
      * @return neue record id
      */
     public int persist(Record record) {
-        return 0;
+        record.setID(nextId);
+        nextId++;
+        records.add(record);
+        saveRecords();
+
+        return record.getId();
     }
     @SuppressWarnings("unchecked")
+
+
+    /**
+     * Liest aus der Datei, erstellt die ArrayList für Records und nextID wird für jeden Record erhöht.
+     * Wird beim öffnen der App aufgerufen, damit nextId nicht immer auf 1 ist.
+     */
     private void initRecords() {
         File f = ctx.getFileStreamPath(FILE_NAME);
         if (f.exists()) {
             try (FileInputStream in = ctx.openFileInput(FILE_NAME)) {
-                Object obj = obj = new ObjectInputStream(in).readObject();
+                Object obj = new ObjectInputStream(in).readObject();
                 records = (List<Record>) obj;
                 // init next id
                 records.stream()
@@ -89,7 +99,6 @@ public class RecordDAO {
 
     /**
      * Speichert die Records in eine Datei die record.obj heißt
-     * ToDo Funktionalität(?) und Einbindung
      */
     private void saveRecords() {
         try (FileOutputStream out = ctx.openFileOutput(FILE_NAME, Context.
