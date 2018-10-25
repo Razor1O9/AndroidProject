@@ -1,88 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RecordFormActivity">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:padding="16dp">
+    android:fillViewport="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RecordFormActivity"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/record_number_input_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/module_num" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/creditpoints"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mark"/>
+            android:text="@string/hint_record_id"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/module_num"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/record_number_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/module_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/record_name_input_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_record_name"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/module_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:completionThreshold="2"
             android:inputType="textNoSuggestions"
-            android:maxLength="10" />
+            android:maxLength="50" />
+
+        <Switch
+            android:id="@+id/term_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_record_semester"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/record_year_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_record_year"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/year_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/hint_record_year" />
+
+        <TextView
+            android:id="@+id/record_cp_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_record_cp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/creditpoints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions"
-            android:maxLength="2" />
-        <EditText
-            android:id="@+id/mark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions"
-            android:maxLength="2" />
-
-        <CheckBox android:id="@+id/checkbox_term"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/term_value"></CheckBox>
-
-        <CheckBox android:id="@+id/checkbox_hf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/halfweight_value"></CheckBox>
+            android:ems="10"
+            android:inputType="numberSigned" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@string/module_name" />
-
-        <ListView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/year_value" />
-
-        <AutoCompleteTextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/module_name"
-            android:completionThreshold="2"
-            android:inputType="textNoSuggestions"
-            android:maxLength="50" />
-
-        <Button
-            android:id="@+id/save"
+            android:id="@+id/record_grade_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:onClick="onSave"
-            android:text="@string/save" />
+            android:text="@string/hint_record_grade"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/record_grade_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/mark"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Switch
+            android:id="@+id/halfweight_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_record_weighting"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:onClick="onSave"/>
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

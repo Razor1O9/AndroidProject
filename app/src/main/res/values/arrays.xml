@@ -1,9 +1,29 @@
 <resources>
-    <string-array name="module_names">
+    <string-array name="module_names">?
         <item>Grundlagen der Informatik</item>
-        <item>Rechnerarchitektur</item>
-        <item>Algorithmen &amp; Datenstrukturen</item>
         <item>Objektorientierte Programmierung</item>
-        <item>Betriebssysteme</item>
-    </string-array>
-</resources>
+        <item>Rechnernetze und ihre Anwendung</item>?
+        <item>Diskrete Mathematik</item>?
+        <item>Naturwissenschaftliche und technische Grundlagen</item>?
+        <item>Algorithmen und Datenstrukturen</item>?
+        <item>Programmierung interaktiver Systeme</item>?
+        <item>Webbasierte Systeme</item>?
+        <item>Recht für Informatiker/innen</item>?
+        <item>Lineare Algebra</item>?
+        <item>DV-orientierte Betriebswirtschaftslehre</item>?
+        <item>Compilerbau</item>?
+        <item>Softwaretechnik</item>?
+        <item>Datenbanksysteme</item>?
+        <item>Konzepte systemnaher Programmierung</item>?
+        <item>Statistik und Datenanalyse</item>?
+        <item>Softwaretechnik-Projekt</item>?
+        <item>Hauptseminar</item>?
+        <item>Betriebssysteme</item>?
+        <item>Projektmanagement</item>?
+        <item>Wissenschaftliches Arbeiten in der Informatik</item>?
+        <item>Projektphase</item>?
+        <item>Projektseminar</item>?
+        <item>Bachelorarbeit mit Kolloquium</item>?
+        <item>Wahlpflichtmodule</item>?
+        <item>Wahlpflichtpraktika</item>?
+    </string-array></resources>

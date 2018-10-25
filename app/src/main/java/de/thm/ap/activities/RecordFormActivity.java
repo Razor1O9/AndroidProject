@@ -19,16 +19,18 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import android.view.MenuItem;
+import android.widget.Spinner;
+import android.widget.Switch;
 
 /*
  / This class contains to formula to enter a new record
  */
 
 public class RecordFormActivity extends AppCompatActivity {
-    private CheckBox term, halfweight;
+    private Switch term, halfweight;
     private EditText moduleNum, creditPoints, mark;
     private AutoCompleteTextView moduleName;
-    private ListView year;
+    private Spinner year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +55,14 @@ public class RecordFormActivity extends AppCompatActivity {
         moduleName.setAdapter(adapter);
 
         // configure year spinner
-        ArrayAdapter<ListView> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getYears());
-        year.setAdapter(adapter2);
-    }
-
-    private LinkedList getYears() {
-        LinkedList yearList = new LinkedList();
-        yearList.add(2018);
-        yearList.add(2017);
-        yearList.add(2016);
-        yearList.add(2015);
-        yearList.add(2014);
-        yearList.add(2013);
-        yearList.add(2012);
-        yearList.add(2011);
-        yearList.add(2010);
-        yearList.add(2009);
-        yearList.add(2008);
-        yearList.add(2007);
-
-
-        return yearList;
+        String[] semesterYear_list = new String[] {
+                "2009","2010","2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"
+        };
+        ArrayAdapter<String> semesterYear_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, semesterYear_list);
+        semesterYear_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        year.setAdapter(semesterYear_adapter);
+        year.setSelection(4);
     }
 
     public void onSave(View view) {
@@ -87,8 +76,16 @@ public class RecordFormActivity extends AppCompatActivity {
         int id = record.getId();
 
         Boolean isValid = true;
+        record.setModuleNum(selectedNum);
+        record.setModuleName(selectedName);
+        record.setYear(Integer.parseInt(selectedYear));
+        record.setHalfWeighted(halfweight.isChecked());
+        record.setSummerTerm(term.isChecked());
+        record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
+        record.setMark(Integer.parseInt(String.valueOf(selectedMark)));
+        record.setID(id);
 
-        record.setModuleName(moduleName.getText().toString().trim());
+
         if ("".equals(record.getModuleName())) {
             moduleName.setError(getString(R.string.module_name_not_empty));
             isValid = false;
@@ -97,18 +94,18 @@ public class RecordFormActivity extends AppCompatActivity {
             moduleNum.setError(getString(R.string.module_number_not_empty));
             isValid = false;
         }
-        if ("".equals(record.getModuleName())) {
+        if ("".equals(record.getCrp())) {
             creditPoints.setError(getString(R.string.credit_points_not_empty));
             isValid = false;
         }
-        if ("".equals(record.getModuleName())) {
+        if ("".equals(record.getMark())) {
             mark.setError(getString(R.string.mark_not_empty));
             isValid = false;
         }
-        if ((Integer.parseInt(String.valueOf(record.getMark())) != 3) |
-                (Integer.parseInt(String.valueOf(record.getMark())) != 6) |
-                (Integer.parseInt(String.valueOf(record.getMark())) != 9) |
-                (Integer.parseInt(String.valueOf(record.getMark())) != 15)) {
+        if ((Integer.parseInt(String.valueOf(record.getCrp())) != 3) |
+                (Integer.parseInt(String.valueOf(record.getCrp())) != 6) |
+                (Integer.parseInt(String.valueOf(record.getCrp())) != 9) |
+                (Integer.parseInt(String.valueOf(record.getCrp())) != 15)) {
             creditPoints.setError(getString(R.string.credit_points_not_valid));
             isValid = false;
         }
@@ -119,16 +116,6 @@ public class RecordFormActivity extends AppCompatActivity {
         }
         // ToDo restliche Fehler testen
         if (isValid) {
-
-            record.setModuleNum(selectedNum);
-            record.setModuleName(selectedName);
-            record.setYear(Integer.parseInt(selectedYear));
-            record.setHalfWeighted(halfweight.isChecked());
-            record.setSummerTerm(term.isChecked());
-            record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
-            record.setMark(Integer.parseInt(String.valueOf(selectedMark)));
-            record.setID(id);
-
 
             // persist record and finish activity
             new RecordDAO(this).persist(record);

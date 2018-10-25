@@ -31,4 +31,5 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'org.junit:junit4-engine:5.0.0-ALPHA'
     implementation 'org.junit:junit4-runner:5.0.0-ALPHA'
+    implementation 'com.android.support:design:27.1.1'
 }
