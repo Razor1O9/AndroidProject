@@ -71,11 +71,9 @@ public class RecordDAO {
      */
     public int persist(Record record) {
         record.setID(nextId);
-        nextId++;
         records.add(record);
         saveRecords();
-
-        return record.getId();
+        return nextId++;
     }
     @SuppressWarnings("unchecked")
     /**

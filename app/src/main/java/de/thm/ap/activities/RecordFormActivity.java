@@ -66,57 +66,65 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-        Record record = new Record("", "", 0, false, false, 0, 0);
 
-        String selectedName = moduleName.toString();
-        String selectedNum = moduleNum.toString();
+
+        String selectedName = moduleName.getText().toString();
+        String selectedNum = moduleNum.getText().toString();
         String selectedYear = year.getSelectedItem().toString();
         Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
-        Integer selectedMark = Integer.valueOf(mark.getText().toString());
-        int id = record.getId();
+        String selectedMark = mark.getText().toString();
 
         Boolean isValid = true;
-        record.setModuleNum(selectedNum);
-        record.setModuleName(selectedName);
-        record.setYear(Integer.parseInt(selectedYear));
-        record.setHalfWeighted(halfweight.isChecked());
-        record.setSummerTerm(term.isChecked());
-        record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
-        record.setMark(Integer.parseInt(String.valueOf(selectedMark)));
-        record.setID(id);
 
-
-        if ("".equals(record.getModuleName())) {
+        if (!("".equals(selectedNum))) {
+            if(!isModuleNr(selectedNum)){
+                moduleNum.setError(getString(R.string.module_number_not_valid));
+                isValid = false;
+            }
+        }
+        if ("".equals(selectedName)) {
             moduleName.setError(getString(R.string.module_name_not_empty));
             isValid = false;
         }
-        if ("".equals(record.getModuleNum())) {
-            moduleNum.setError(getString(R.string.module_number_not_empty));
-            isValid = false;
-        }
-        if ("".equals(record.getCrp())) {
+        if ("".equals(selectedCrp)) {
             creditPoints.setError(getString(R.string.credit_points_not_empty));
             isValid = false;
         }
-        if ("".equals(record.getMark())) {
+        if ("".equals(selectedMark)) {
             mark.setError(getString(R.string.mark_not_empty));
             isValid = false;
         }
-        if ((Integer.parseInt(String.valueOf(record.getCrp())) != 3) |
-                (Integer.parseInt(String.valueOf(record.getCrp())) != 6) |
-                (Integer.parseInt(String.valueOf(record.getCrp())) != 9) |
-                (Integer.parseInt(String.valueOf(record.getCrp())) != 15)) {
+
+        if (selectedCrp != 3 &&
+                selectedCrp != 6 &&
+                selectedCrp != 9 &&
+                selectedCrp != 15) {
             creditPoints.setError(getString(R.string.credit_points_not_valid));
             isValid = false;
         }
-
-        if ((Integer.parseInt(String.valueOf(record.getMark())) < 50) | (Integer.parseInt(String.valueOf(record.getMark())) > 100)) {
+        if(!isNumeric(selectedMark)){
+            if(!isNull(selectedMark)){
+                isValid = false;
+            }
+        }
+        else if ((Integer.parseInt(String.valueOf(selectedMark)) < 50) | (Integer.parseInt(String.valueOf(selectedMark)) > 100)) {
             mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
         // ToDo restliche Fehler testen
         if (isValid) {
-
+            Record record = new Record("", "", 0, false, false, 0, 0);
+            record.setModuleNum(selectedNum);
+            record.setModuleName(selectedName);
+            record.setYear(Integer.parseInt(selectedYear));
+            record.setHalfWeighted(halfweight.isChecked());
+            record.setSummerTerm(term.isChecked());
+            record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
+            if(isParseable(selectedMark)){
+                record.setMark(Integer.parseInt(selectedMark));
+            } else {
+                record.setMark(0);
+            }
             // persist record and finish activity
             new RecordDAO(this).persist(record);
             finish();
@@ -132,6 +140,27 @@ public class RecordFormActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static boolean isNull(String s){
+        return s.matches("[Nn][Uu][Ll][Ll]");
+    }
+
+    private static boolean isNumeric(String s){
+        return s.matches("\\d+");
+    }
+
+    private static boolean isParseable(String s){
+        boolean parseable = true;
+        try{
+            Integer.parseInt(s);
+        } catch (Exception e){
+            parseable = false;
+        }
+        return parseable;
+    }
+    private static boolean isModuleNr(String s){
+        return s.matches("[a-zA-Z]{2}[0-9]{4}");
     }
 }
 

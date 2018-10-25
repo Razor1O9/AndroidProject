@@ -41,13 +41,19 @@ public class Stats {
     public int getAverageMark() {
         int averageMarkFullWeight = 0;
         int averageMarkHalfWeight = 0;
+        int ungradedRecords = 0;
         for (Record recordItem : records) {
             if (recordItem.isHalfWeighted())
                 averageMarkHalfWeight += recordItem.getMark();
             else averageMarkFullWeight += recordItem.getMark();
+
+            if(recordItem.getMark() == 0)
+                ungradedRecords++;
         }
 
-        return (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / (records.size() - (getSumHalfWeighted()*0.5) ));
+
+
+        return (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / ((records.size() - ungradedRecords) - (getSumHalfWeighted()*0.5) ));
     }
 
 }

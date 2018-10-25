@@ -10,10 +10,10 @@ import java.io.Serializable;
 public class Record implements Serializable {
     private String moduleName;
     private String moduleNum;
+    private int mark;
     private int id;
     private int year;
     private int crp;
-    private int mark;
     private boolean summerTerm;
     private boolean halfWeight;
 
@@ -89,7 +89,13 @@ public class Record implements Serializable {
     }
 
 
-    public long getMark() {
+    public int getMark() {
         return mark;
+    }
+
+    @Override
+    public String toString(){
+        return moduleName + " " + moduleNum + " " + "(" + (mark == 0 ? "-/-" : mark + "%")
+                + " " + crp + "crp)";
     }
 }

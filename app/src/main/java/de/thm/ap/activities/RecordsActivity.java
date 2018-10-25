@@ -56,8 +56,8 @@ public class RecordsActivity extends AppCompatActivity {
             return true;
             case R.id.action_stats:
             AlertDialog.Builder stats = new AlertDialog.Builder(this);
+            stats.setTitle(getString(R.string.statistics_header));
             stats.setMessage(
-                        getString(R.string.statistics_header) + "\n" +
                         getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
                         getString(R.string.statistics_halfweight_record_count) + " " + statistics.getSumHalfWeighted() + "\n" +
                         getString(R.string.statistics_sum) + " " +  statistics.getSumCrp() + "\n" +
@@ -65,6 +65,8 @@ public class RecordsActivity extends AppCompatActivity {
                         getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
 
                 );
+            stats.setNeutralButton("Schließen", null);
+            stats.show();
         }
         return super.onOptionsItemSelected(item);
     }
