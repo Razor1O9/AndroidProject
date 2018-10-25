@@ -10,9 +10,6 @@ import de.thm.ap.records.model.Record;
 
 public class Stats {
     private final List<Record> records;
-
-    // ToDo Werte füllen
-    private int recordCount = 0; // Anzahl gespeicherte Leistung
     private int creditPointsSum = 0; // Summe CP
     private int average = 0; // Durchschnittsnote
     private int fiftyPercentCount = 0;// Anzahl 50% Module
@@ -30,19 +27,8 @@ public class Stats {
     }
 
     public int getCrpToEnd() {
-        // CP Gesamt - Summe = Noch benötigte Crps
-
         return requiredCreditPoints - getSumCrp();
     }
-
-    /*public int getSumHalfWeighted() {
-        int sumHalfWeighted = 0;
-        for (Record recordItemHalf : records) {
-            if (recordItemHalf.isHalfWeighted())
-                sumHalfWeighted += recordItemHalf.getCrp();
-        }
-        return sumHalfWeighted;
-    }*/
 
     public int getSumHalfWeighted() {
         for (Record recordItemHalf : records) {

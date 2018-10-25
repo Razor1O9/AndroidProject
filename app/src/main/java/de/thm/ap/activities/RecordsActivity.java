@@ -56,8 +56,6 @@ public class RecordsActivity extends AppCompatActivity {
             return true;
             case R.id.action_stats:
             AlertDialog.Builder stats = new AlertDialog.Builder(this);
-            // ToDo AlertDialog anzeigen (Statistik.class Daten holen)
-            // neues stat Object anlegen und toString override
             stats.setMessage(
                         getString(R.string.statistics_header) + "\n" +
                         getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
@@ -66,8 +64,7 @@ public class RecordsActivity extends AppCompatActivity {
                         getString(R.string.statistics_crp_left) + " " + statistics.getCrpToEnd() + "\n" +
                         getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
 
-                ); // Inhalt des AltertDialog
-            // display stats
+                );
         }
         return super.onOptionsItemSelected(item);
     }
