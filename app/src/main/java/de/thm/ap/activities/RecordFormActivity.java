@@ -34,6 +34,11 @@ public class RecordFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_form);
+
+        // Show up button in action bar
+        Optional.ofNullable(getSupportActionBar()).ifPresent(actionBar -> actionBar.setDisplayHomeAsUpEnabled(true));
+
+        // get views
         moduleNum = findViewById(R.id.module_num);
         moduleName = findViewById(R.id.module_name);
         year = findViewById(R.id.year_value);
@@ -41,11 +46,6 @@ public class RecordFormActivity extends AppCompatActivity {
         mark = findViewById(R.id.mark);
         term = findViewById(R.id.term_value);
         halfweight = findViewById(R.id.halfweight_value);
-        // Show up button in action bar
-        Optional.ofNullable(getSupportActionBar()).ifPresent(actionBar -> actionBar.setDisplayHomeAsUpEnabled(true));
-
-        // get views
-        moduleNum = findViewById(R.id.module_num);
 
         // configure suggestions in auto complete text view
         String[] names = getResources().getStringArray(R.array.module_names);
@@ -53,7 +53,7 @@ public class RecordFormActivity extends AppCompatActivity {
         moduleName.setAdapter(adapter);
 
         // configure year spinner
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getYears());
+        ArrayAdapter<ListView> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getYears());
         year.setAdapter(adapter2);
     }
 
@@ -78,7 +78,7 @@ public class RecordFormActivity extends AppCompatActivity {
 
     public void onSave(View view) {
         Record record = new Record("", "", 0, false, false, 0, 0);
-        
+
         String selectedName = moduleName.toString();
         String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
@@ -93,7 +93,7 @@ public class RecordFormActivity extends AppCompatActivity {
             moduleName.setError(getString(R.string.module_name_not_empty));
             isValid = false;
         }
-        if ("".equals(record.getModuleName())) {
+        if ("".equals(record.getModuleNum())) {
             moduleNum.setError(getString(R.string.module_number_not_empty));
             isValid = false;
         }
