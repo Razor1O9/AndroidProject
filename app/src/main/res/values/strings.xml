@@ -6,6 +6,9 @@
     <string name="no_records">Keine Leistungen</string>
     <string name="module_num">Modulnummer</string>
     <string name="module_name">Modulname</string>
+    <string name="year_value">Jahr</string>
+    <string name="mark">Note</string>
+    <string name="creditpoints">Creditpoints</string>
     <string name="save">Speichern</string>
     <string name="drawable">"Test"</string>
     <string name="module_name_not_empty">Kein Modulname hinterlegt</string>
@@ -22,5 +25,7 @@
 
     <string name="credit_points_not_valid" />
     <string name="mark_not_valid" />
+    <string name="term_value" />
+    <string name="halfweight_value" />
 </resources>
 

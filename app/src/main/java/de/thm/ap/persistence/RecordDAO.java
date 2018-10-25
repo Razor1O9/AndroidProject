@@ -49,13 +49,19 @@ public class RecordDAO {
      *
      * @param record
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
-     * // ToDo Fehlermeldung
      */
     public boolean update(Record record) {
-        findById(record.getId()).ifPresent(
-                r -> {}
-        );
-        return true;
+        if (findById(record.getId()).isPresent()){
+            findById(record.getId()).get(); // findById = optional wrapped, get holt aus dem optional das objekt+
+            for (Record recordItem : records) {
+                if (recordItem.getId().equals(record.getId())) {
+                    recordItem = record;
+                    saveRecords();
+                }
+            }
+            return true;
+        }
+        return false;
     }
     /**
      * Persistiert das übergebene {@link Record} Objekt und liefert die neue id zurück.
@@ -72,8 +78,6 @@ public class RecordDAO {
         return record.getId();
     }
     @SuppressWarnings("unchecked")
-
-
     /**
      * Liest aus der Datei, erstellt die ArrayList für Records und nextID wird für jeden Record erhöht.
      * Wird beim öffnen der App aufgerufen, damit nextId nicht immer auf 1 ist.

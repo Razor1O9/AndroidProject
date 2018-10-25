@@ -6,6 +6,7 @@ import de.thm.ap.R;
 
 import android.support.v7.app.AppCompatActivity;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,16 +25,22 @@ import android.view.MenuItem;
  */
 
 public class RecordFormActivity extends AppCompatActivity {
+    private CheckBox term, halfweight;
     private EditText moduleNum, creditPoints, mark;
     private AutoCompleteTextView moduleName;
     private ListView year;
-    private Boolean term, halfweight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_form);
-
+        moduleNum = findViewById(R.id.module_num);
+        moduleName = findViewById(R.id.module_name);
+        year = findViewById(R.id.year_value);
+        creditPoints = findViewById(R.id.creditpoints);
+        mark = findViewById(R.id.mark);
+        term = findViewById(R.id.term_value);
+        halfweight = findViewById(R.id.halfweight_value);
         // Show up button in action bar
         Optional.ofNullable(getSupportActionBar()).ifPresent(actionBar -> actionBar.setDisplayHomeAsUpEnabled(true));
 
@@ -46,7 +53,7 @@ public class RecordFormActivity extends AppCompatActivity {
         moduleName.setAdapter(adapter);
 
         // configure year spinner
-        ArrayAdapter<LinkedList> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getYears());
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getYears());
         year.setAdapter(adapter2);
     }
 
@@ -70,14 +77,12 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-        Record record = new Record("","", 0, false,false,0,0);
+        Record record = new Record("", "", 0, false, false, 0, 0);
         // validate user input
 
         String selectedName = moduleName.toString();
         String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
-        Boolean selectedTerm = term.booleanValue();
-        Boolean selectedWeight = halfweight.booleanValue();
         Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
         Integer selectedMark = Integer.valueOf(mark.getText().toString());
         int id = 0;
@@ -104,9 +109,9 @@ public class RecordFormActivity extends AppCompatActivity {
         if ((Integer.parseInt(String.valueOf(record.getMark())) != 3) |
                 (Integer.parseInt(String.valueOf(record.getMark())) != 6) |
                 (Integer.parseInt(String.valueOf(record.getMark())) != 9) |
-                (Integer.parseInt(String.valueOf(record.getMark())) != 30)){
-                    creditPoints.setError(getString(R.string.credit_points_not_valid));
-                    isValid = false;
+                (Integer.parseInt(String.valueOf(record.getMark())) != 15)) {
+            creditPoints.setError(getString(R.string.credit_points_not_valid));
+            isValid = false;
         }
 
         if ((Integer.parseInt(String.valueOf(record.getMark())) < 50) | (Integer.parseInt(String.valueOf(record.getMark())) > 100)) {
@@ -119,12 +124,11 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setModuleNum(selectedNum);
             record.setModuleName(selectedName);
             record.setYear(Integer.parseInt(selectedYear));
-            record.setHalfWeighted(halfweight);
-            record.setSummerTerm(term);
+            record.setHalfWeighted(halfweight.isChecked());
+            record.setSummerTerm(term.isChecked());
             record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
             record.setMark(Integer.parseInt(mark.getText().toString()));
             record.setID(id);
-
 
 
             // persist record and finish activity

@@ -48,9 +48,6 @@ public class Record implements Serializable {
         id = inputID;
     }
 
-    /*
-    ToDo Datenbank-Zugriff und Primärschlüssel abrufen über RecordDAO
-     */
     public Integer getId() {
         return id;
     }

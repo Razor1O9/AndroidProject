@@ -19,6 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/module_num" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/creditpoints"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mark"/>
 
         <EditText
             android:id="@+id/module_num"
@@ -27,10 +35,38 @@
             android:inputType="textNoSuggestions"
             android:maxLength="10" />
 
+        <EditText
+            android:id="@+id/creditpoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:maxLength="2" />
+        <EditText
+            android:id="@+id/mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:maxLength="2" />
+
+        <CheckBox android:id="@+id/checkbox_term"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/term_value"></CheckBox>
+
+        <CheckBox android:id="@+id/checkbox_hf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/halfweight_value"></CheckBox>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/module_name" />
+
+        <ListView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/year_value" />
 
         <AutoCompleteTextView
             android:layout_width="0dp"

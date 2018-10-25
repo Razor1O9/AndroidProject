@@ -5,4 +5,7 @@
     <item name="records_list_empty" type="id" />
     <item name="action_add" type="id" />
     <item name="action_stats" type="id" />
+    <item name="year_value" type="id" />
+    <item name="term_value" type="id" />
+    <item name="halfweight_value" type="id" />
 </resources>
