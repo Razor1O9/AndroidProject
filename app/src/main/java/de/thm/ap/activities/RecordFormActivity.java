@@ -78,14 +78,13 @@ public class RecordFormActivity extends AppCompatActivity {
 
     public void onSave(View view) {
         Record record = new Record("", "", 0, false, false, 0, 0);
-        // validate user input
-
+        
         String selectedName = moduleName.toString();
         String selectedNum = moduleNum.toString();
         String selectedYear = year.getSelectedItem().toString();
         Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
         Integer selectedMark = Integer.valueOf(mark.getText().toString());
-        int id = 0;
+        int id = record.getId();
 
         Boolean isValid = true;
 
@@ -126,8 +125,8 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setYear(Integer.parseInt(selectedYear));
             record.setHalfWeighted(halfweight.isChecked());
             record.setSummerTerm(term.isChecked());
-            record.setCrp(Integer.parseInt(creditPoints.getText().toString()));
-            record.setMark(Integer.parseInt(mark.getText().toString()));
+            record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
+            record.setMark(Integer.parseInt(String.valueOf(selectedMark)));
             record.setID(id);
 
 
