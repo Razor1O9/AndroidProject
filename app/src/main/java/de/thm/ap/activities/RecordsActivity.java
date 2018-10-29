@@ -46,9 +46,9 @@ public class RecordsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
                 Record selectedRecord = (Record)parent.getItemAtPosition(position);
-                Intent i = new Intent(this, RecordFormActivity.class);
-                i.putExtra("oldRecord", selectedRecord);
-                startActivity(i);
+                Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
+                startThis.putExtra("oldRecord", selectedRecord);
+                startActivity(startThis);
             }
         });
     }
