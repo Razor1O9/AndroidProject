@@ -33,22 +33,25 @@ public class RecordFormActivity extends AppCompatActivity {
     private Spinner year;
     private Boolean isUpdate = false;
 
-    private RecordFormActivity(Record initialRecord) {
-        isUpdate = true;
-        moduleName.setText(initialRecord.getModuleName());
-        moduleNum.setText(initialRecord.getModuleNum());
-        mark.setText(initialRecord.getMark());
-        creditPoints.setText((int)initialRecord.getCrp());
-        term.setChecked(initialRecord.isSummerTerm());
-        halfweight.setChecked(initialRecord.isHalfWeighted());
+    private RecordFormActivity() {
+        Bundle extras = getIntent().getExtras();
+        Record oldRecord;
+        oldRecord = extras;
 
-        //TODO prüfen ob die Logik so passt
-        //TODO: wird der Konstrukor aufgerufen bevor onCreate die Liste füllt?
+        //set year
         for (int i=0;i<year.getCount();i++){
-            if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(initialRecord.getYear()))){
+            if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(oldRecord.getYear()))){
                 year.setSelection(i);
             }
         }
+
+        isUpdate = true;
+        moduleName.setText(oldRecord.getModuleName());
+        moduleNum.setText(oldRecord.getModuleNum());
+        mark.setText(oldRecord.getMark());
+        creditPoints.setText((int)oldRecord.getCrp());
+        term.setChecked(oldRecord.isSummerTerm());
+        halfweight.setChecked(oldRecord.isHalfWeighted());
     }
 
     @Override

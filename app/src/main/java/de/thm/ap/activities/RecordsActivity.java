@@ -50,6 +50,8 @@ public class RecordsActivity extends AppCompatActivity {
                 //TODO: RecordFormActivity mit Kontructor(selectedRecord) aufrufen
                 Intent i = new Intent(this, RecordFormActivity.class);
 
+                i.putExtra("oldRecord", selectedRecord);
+
                 startActivity(i);
             }
         });
