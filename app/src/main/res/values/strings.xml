@@ -24,7 +24,7 @@
     <string name="statistics_crp_left">Crp bis Ziel</string>
     <string name="statistics_average">Durchschnitt</string>
 
-    <string name="credit_points_not_valid" />
+    <string name="credit_points_not_valid">Eingabe ungültig</string>
     <string name="hint_record_id">Modulnummer</string>
     <string name="hint_record_year">Jahr</string>
     <string name="hint_record_semester">Sommersemester</string>

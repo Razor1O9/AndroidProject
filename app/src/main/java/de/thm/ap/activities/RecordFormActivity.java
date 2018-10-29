@@ -123,7 +123,7 @@ public class RecordFormActivity extends AppCompatActivity {
                 isValid = false;
             }
         }
-        else if ((Integer.parseInt(String.valueOf(selectedMark)) < 50) | (Integer.parseInt(String.valueOf(selectedMark)) > 100)) {
+        else if ((Integer.parseInt(String.valueOf(selectedMark)) < 0) | (Integer.parseInt(String.valueOf(selectedMark)) > 100)) {
             mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
