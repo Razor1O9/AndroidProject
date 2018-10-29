@@ -4,11 +4,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.records.model.Record;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import java.util.List;
@@ -32,13 +33,26 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         records = new RecordDAO(this).findAll();
         ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, records);
         recordsListView.setAdapter(adapter);
+
+        // On click edit List Item
+        recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected item
+                Record selectedRecord = (Record)parent.getItemAtPosition(position);
+
+                Intent i = new Intent(this, RecordFormActivity.class);
+                startActivity(i);
+            }
+        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu
@@ -46,6 +60,7 @@ public class RecordsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.records, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Stats statistics = new Stats(records);

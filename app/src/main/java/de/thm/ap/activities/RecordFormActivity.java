@@ -31,6 +31,19 @@ public class RecordFormActivity extends AppCompatActivity {
     private EditText moduleNum, creditPoints, mark;
     private AutoCompleteTextView moduleName;
     private Spinner year;
+    private Boolean isUpdate = false;
+
+    private RecordFormActivity(Record initialRecord) {
+        isUpdate = true;
+        moduleName.setText(initialRecord.getModuleName());
+        moduleNum.setText(initialRecord.getModuleNum());
+        mark.setText(initialRecord.getMark());
+        creditPoints.setText((int)initialRecord.getCrp());
+        term.setChecked(initialRecord.isSummerTerm());
+        halfweight.setChecked(initialRecord.isHalfWeighted());
+
+        //year.setSelection(initialRecord.getYear());//TODO ???
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +139,11 @@ public class RecordFormActivity extends AppCompatActivity {
                 record.setMark(0);
             }
             // persist record and finish activity
-            new RecordDAO(this).persist(record);
+            if (isUpdate) {
+                new RecordDAO(this).update(record);
+            } else {
+                new RecordDAO(this).persist(record);
+            }
             finish();
         }
 
