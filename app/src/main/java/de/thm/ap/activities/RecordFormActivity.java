@@ -74,8 +74,8 @@ public class RecordFormActivity extends AppCompatActivity {
             //set year
             moduleName.setText(oldRecord.getModuleName());
             moduleNum.setText(oldRecord.getModuleNum());
-            mark.setText(oldRecord.getMark());
-            creditPoints.setText((int) oldRecord.getCrp());
+            mark.setText(String.valueOf(oldRecord.getMark()));
+            creditPoints.setText(String.valueOf(oldRecord.getCrp()));
             term.setChecked(oldRecord.isSummerTerm());
             halfweight.setChecked(oldRecord.isHalfWeighted());
             for (int i=0;i<year.getCount();i++){
