@@ -25,6 +25,7 @@ public class RecordDAO {
         this.ctx = ctx;
         initRecords();
     }
+
     /**
      * Kein Parameter, schlichter Aufruf.
        @return Records
@@ -32,6 +33,7 @@ public class RecordDAO {
     public List<Record> findAll() {
         return records;
     }
+
     /**
        Gibt Record mit der angegebenen ID zurück
        oder Null falls kein mit dieser ID gefunden wurde (=Optional)
@@ -63,6 +65,27 @@ public class RecordDAO {
         }
         return false;
     }
+
+    /**
+     * Löscht das übergebene {@link Record} Objekt
+     *
+     * @param List<Record>
+     * @return true = delete ok, false = löschen Fehlgeschlagen
+     */
+    public boolean delete(List<Record> recordListToDelete) {
+        // Alle gespeicherten Records durchlaufen
+        for (Record savedRecordItem: records) {
+            //alle übergebenen Records danach matchen
+            for (Record recordItem : recordListToDelete) {
+                if (recordItem.getId().equals(savedRecordItem.getId())) {
+                    savedRecordItem = null;
+                    saveRecords();
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * Persistiert das übergebene {@link Record} Objekt und liefert die neue id zurück.
      *
@@ -75,6 +98,7 @@ public class RecordDAO {
         saveRecords();
         return nextId++;
     }
+
     @SuppressWarnings("unchecked")
     /**
      * Liest aus der Datei, erstellt die ArrayList für Records und nextID wird für jeden Record erhöht.
