@@ -42,7 +42,13 @@ public class RecordFormActivity extends AppCompatActivity {
         term.setChecked(initialRecord.isSummerTerm());
         halfweight.setChecked(initialRecord.isHalfWeighted());
 
-        //year.setSelection(initialRecord.getYear());//TODO ???
+        //TODO prüfen ob die Logik so passt
+        //TODO: wird der Konstrukor aufgerufen bevor onCreate die Liste füllt?
+        for (int i=0;i<year.getCount();i++){
+            if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(initialRecord.getYear()))){
+                year.setSelection(i);
+            }
+        }
     }
 
     @Override
@@ -79,7 +85,6 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-
 
         String selectedName = moduleName.getText().toString();
         String selectedNum = moduleNum.getText().toString();

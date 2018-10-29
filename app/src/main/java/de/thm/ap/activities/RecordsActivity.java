@@ -47,7 +47,9 @@ public class RecordsActivity extends AppCompatActivity {
                 // Get the selected item
                 Record selectedRecord = (Record)parent.getItemAtPosition(position);
 
+                //TODO: RecordFormActivity mit Kontructor(selectedRecord) aufrufen
                 Intent i = new Intent(this, RecordFormActivity.class);
+
                 startActivity(i);
             }
         });
