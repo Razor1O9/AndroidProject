@@ -33,27 +33,6 @@ public class RecordFormActivity extends AppCompatActivity {
     private Spinner year;
     private Boolean isUpdate = false;
 
-    private RecordFormActivity() {
-        Bundle extras = getIntent().getExtras();
-        Record oldRecord;
-        oldRecord = extras;
-
-        //set year
-        for (int i=0;i<year.getCount();i++){
-            if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(oldRecord.getYear()))){
-                year.setSelection(i);
-            }
-        }
-
-        isUpdate = true;
-        moduleName.setText(oldRecord.getModuleName());
-        moduleNum.setText(oldRecord.getModuleNum());
-        mark.setText(oldRecord.getMark());
-        creditPoints.setText((int)oldRecord.getCrp());
-        term.setChecked(oldRecord.isSummerTerm());
-        halfweight.setChecked(oldRecord.isHalfWeighted());
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +64,26 @@ public class RecordFormActivity extends AppCompatActivity {
         semesterYear_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         year.setAdapter(semesterYear_adapter);
         year.setSelection(4);
+
+        // Do update stuff
+        Bundle extras = getIntent().getExtras();
+        Record oldRecord = (Record)extras.getSerializable("oldRecord");
+
+        if (extras != null) {
+            isUpdate = true;
+            //set year
+            moduleName.setText(oldRecord.getModuleName());
+            moduleNum.setText(oldRecord.getModuleNum());
+            mark.setText(oldRecord.getMark());
+            creditPoints.setText((int) oldRecord.getCrp());
+            term.setChecked(oldRecord.isSummerTerm());
+            halfweight.setChecked(oldRecord.isHalfWeighted());
+            for (int i=0;i<year.getCount();i++){
+                if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(oldRecord.getYear()))){
+                    year.setSelection(i);
+                }
+            }
+        }
     }
 
     public void onSave(View view) {

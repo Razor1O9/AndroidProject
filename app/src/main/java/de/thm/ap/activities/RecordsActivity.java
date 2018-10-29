@@ -41,17 +41,13 @@ public class RecordsActivity extends AppCompatActivity {
         ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, records);
         recordsListView.setAdapter(adapter);
 
-        // On click edit List Item
+        // On click -> edit List Item
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
                 Record selectedRecord = (Record)parent.getItemAtPosition(position);
-
-                //TODO: RecordFormActivity mit Kontructor(selectedRecord) aufrufen
                 Intent i = new Intent(this, RecordFormActivity.class);
-
                 i.putExtra("oldRecord", selectedRecord);
-
                 startActivity(i);
             }
         });
