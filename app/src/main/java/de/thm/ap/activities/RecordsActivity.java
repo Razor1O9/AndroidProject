@@ -1,5 +1,6 @@
 package de.thm.ap.activities;
 
+import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,13 +43,12 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                // TODO: update Titel in CAB with number
                 if (checked) {
-                    selectedRecords.add(*); //TODO * get the selected records by id or position
+                    selectedRecords.add(records.get(position));
                     selectedRecordCounter++;
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
                 } else {
-                    selectedRecords.remove(*); //TODO * get the selected records by id or position
+                    selectedRecords.remove(records.get(position));
                     selectedRecordCounter--;
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
                 }
@@ -59,11 +59,11 @@ public class RecordsActivity extends AppCompatActivity {
                 // Respond to clicks on the actions in the CAB
                 switch (item.getItemId()) {
                     case R.id.menu_delete:
-                        //TODO delete();
+                        new RecordDAO().delete(selectedRecords);
                         mode.finish(); // Action picked, so close the CAB
                         return true;
                     case R.id.menu_send:
-                        //TODO senden();
+                        //TODO senden
                         mode.finish(); // Action picked, so close the CAB
                     default:
                         return false;
