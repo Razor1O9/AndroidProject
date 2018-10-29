@@ -6,16 +6,13 @@ import de.thm.ap.R;
 
 import android.support.v7.app.AppCompatActivity;
 import android.widget.AutoCompleteTextView;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.view.View;
 
 import de.thm.ap.records.model.Record;
 import de.thm.ap.persistence.RecordDAO;
 
-import java.util.LinkedList;
 import java.util.Optional;
 
 import android.view.MenuItem;
@@ -71,7 +68,6 @@ public class RecordFormActivity extends AppCompatActivity {
 
         if (extras != null) {
             isUpdate = true;
-            //set year
             moduleName.setText(oldRecord.getModuleName());
             moduleNum.setText(oldRecord.getModuleNum());
             mark.setText(String.valueOf(oldRecord.getMark()));
@@ -131,7 +127,6 @@ public class RecordFormActivity extends AppCompatActivity {
             mark.setError(getString(R.string.mark_not_valid));
             isValid = false;
         }
-        // ToDo restliche Fehler testen
         if (isValid) {
             Record record = new Record("", "", 0, false, false, 0, 0);
             record.setModuleNum(selectedNum);
