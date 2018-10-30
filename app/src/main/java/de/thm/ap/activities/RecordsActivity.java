@@ -71,11 +71,21 @@ public class RecordsActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+
+            @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 // Inflate the menu for the CAB
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.context, menu);
                 return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
             }
         });
     }
