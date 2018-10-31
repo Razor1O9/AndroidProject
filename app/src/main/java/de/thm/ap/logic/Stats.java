@@ -20,8 +20,10 @@ public class Stats {
     }
 
     public int getSumCrp() {
+        creditPointsSum = 0;
         for (Record recordItem : records) {
-            creditPointsSum += recordItem.getCrp();
+                if(recordItem.getMark() >= 50)
+                    creditPointsSum += recordItem.getCrp();
         }
         return creditPointsSum;
     }
@@ -31,6 +33,7 @@ public class Stats {
     }
 
     public int getSumHalfWeighted() {
+        fiftyPercentCount = 0;
         for (Record recordItemHalf : records) {
             if (recordItemHalf.isHalfWeighted())
                 fiftyPercentCount += 1;
