@@ -58,7 +58,7 @@ public class RecordsActivity extends AppCompatActivity {
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
                 }
             }
-
+            // TEST
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 // Respond to clicks on the actions in the CAB
