@@ -60,7 +60,7 @@ public class RecordFormActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, semesterYear_list);
         semesterYear_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         year.setAdapter(semesterYear_adapter);
-        year.setSelection(4);
+        year.setSelection(9);
 
         // Do update stuff
         Bundle extras = getIntent().getExtras();
