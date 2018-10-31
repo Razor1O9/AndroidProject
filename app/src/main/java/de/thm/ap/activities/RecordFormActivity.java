@@ -64,9 +64,9 @@ public class RecordFormActivity extends AppCompatActivity {
 
         // Do update stuff
         Bundle extras = getIntent().getExtras();
-        Record oldRecord = (Record)extras.getSerializable("oldRecord");
 
         if (extras != null) {
+            Record oldRecord = (Record)extras.getSerializable("oldRecord");
             isUpdate = true;
             moduleName.setText(oldRecord.getModuleName());
             moduleNum.setText(oldRecord.getModuleNum());

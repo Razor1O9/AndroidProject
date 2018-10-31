@@ -150,8 +150,8 @@ public class RecordsActivity extends AppCompatActivity {
         Stats statistics = new Stats(records);
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent i = new Intent(this, RecordFormActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(getApplicationContext(),RecordFormActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_stats:
                 AlertDialog.Builder stats = new AlertDialog.Builder(this);
