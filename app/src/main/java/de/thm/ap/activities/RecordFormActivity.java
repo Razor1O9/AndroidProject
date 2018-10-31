@@ -87,32 +87,29 @@ public class RecordFormActivity extends AppCompatActivity {
         String selectedName = moduleName.getText().toString();
         String selectedNum = moduleNum.getText().toString();
         String selectedYear = year.getSelectedItem().toString();
-        Integer selectedCrp = Integer.valueOf(creditPoints.getText().toString());
+        String selectedCrp = creditPoints.getText().toString();
         String selectedMark = mark.getText().toString();
 
         Boolean isValid = true;
 
-        if (!("".equals(selectedNum)) && !isModuleNr(selectedNum)) {
+        if (!selectedNum.isEmpty() && !isModuleNr(selectedNum)) {
             moduleNum.setError(getString(R.string.module_number_not_valid));
             isValid = false;
         }
-        if (selectedName.equals(null)) {
+        if (selectedName.isEmpty()) {
             moduleName.setError(getString(R.string.module_name_not_empty));
             isValid = false;
         }
-        if (selectedCrp.equals(null)) {
-            creditPoints.setError(getString(R.string.credit_points_not_empty));
-            isValid = false;
-        }
-        if (selectedMark.equals(null)) {
+
+        if (selectedMark.isEmpty()) {
             mark.setError(getString(R.string.mark_not_empty));
             isValid = false;
         }
 
-        if (selectedCrp != 3 &&
-                selectedCrp != 6 &&
-                selectedCrp != 9 &&
-                selectedCrp != 15) {
+        if (!selectedCrp.equals("3") &&
+                !selectedCrp.equals("6") &&
+                !selectedCrp.equals("9") &&
+                !selectedCrp.equals("15")) {
             creditPoints.setError(getString(R.string.credit_points_not_valid));
             isValid = false;
         }
