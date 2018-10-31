@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import android.content.Context;
+
+import java.util.Arrays;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /*
  / Records are being saved in this class and can be referenced when a new session starts.
@@ -53,17 +56,20 @@ public class RecordDAO {
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
      */
     public boolean update(Record record) {
-        if (findById(record.getId()).isPresent()){
-            findById(record.getId()).get(); // findById = optional wrapped, get holt aus dem optional das objekt+
-            for (Record recordItem : records) {
-                if (recordItem.getId().equals(record.getId())) {
-                    recordItem = record;
-                    saveRecords();
-                }
-            }
-            return true;
-        }
-        return false;
+        delete(Arrays.asList(record));
+        records.add(record);
+        saveRecords();
+//        if (findById(record.getId()).isPresent()){
+//            findById(record.getId()).get(); // findById = optional wrapped, get holt aus dem optional das objekt+
+//            for (Record recordItem : records) {
+//                if (recordItem.getId().equals(record.getId())) {
+//                    recordItem = record;
+//                    saveRecords();
+//                }
+//            }
+//            return true;
+//        }
+        return true;
     }
 
     /**
@@ -73,15 +79,9 @@ public class RecordDAO {
      * @return true = delete ok, false = löschen Fehlgeschlagen
      */
     public boolean delete(List<Record> recordListToDelete) {
-        // Alle gespeicherten Records durchlaufen
-        for (Record savedRecordItem: records) {
-            //alle übergebenen Records danach matchen
-            for (Record recordItem : recordListToDelete) {
-                if (recordItem.getId().equals(savedRecordItem.getId())) {
-                    savedRecordItem = null;
-                    saveRecords();
-                }
-            }
+        for (Record recordToDelete : recordListToDelete) {
+            records.remove(findById(recordToDelete.getId()));
+            saveRecords();
         }
         return true;
     }
