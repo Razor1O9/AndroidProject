@@ -33,7 +33,6 @@ import de.thm.ap.persistence.RecordDAO;
  */
 
 public class RecordsActivity extends AppCompatActivity {
-    private ActionMode mActionMode;
     private ListView recordsListView;
     private List<Record> records = new ArrayList<>();
     private List<Record> selectedRecords = new ArrayList<>();
@@ -47,6 +46,7 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
         recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
             @Override
             public void onItemCheckedStateChanged(android.view.ActionMode mode, int position, long id, boolean checked) {
                 if (checked) {
@@ -116,79 +116,9 @@ public class RecordsActivity extends AppCompatActivity {
 
             @Override
             public void onDestroyActionMode(android.view.ActionMode mode) {
-                mActionMode = null;
             }
         });
     }
-
-//    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-//        //  Called when the action mode is created; startActionMode() was called
-//        @Override
-//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-//            mode.getMenuInflater().inflate(R.menu.context_menu, menu);
-//            mode.setTitle("Choose your option");
-////          Inflate a menu resource providing context_menu menu items
-////          MenuInflater inflater = mode.getMenuInflater();
-////          inflater.inflate(R.menu.context_menu, menu);
-//            return true;
-//        }
-//
-//        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-//        // may be called multiple times if the mode is invalidated.
-//        @Override
-//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//            return false; // Return false if nothing is done
-//        }
-//        @Override
-//        // Called when the user selects a contextual menu item
-//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//            // Respond to clicks on the actions in the CAB
-//            switch (item.getItemId()) {
-//                case R.id.menu_delete:
-//                    new RecordDAO(getBaseContext()).delete(selectedRecords);
-//                    Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
-//                    selectedRecordCounter = 0;
-//                    mode.finish(); // Action picked, so close the CAB
-//                    return true;
-//                case R.id.menu_send:
-//                    Log.i("Email senden", "");
-//                    String[] TO = {""};
-//                    String[] CC = {""};
-//                    String mailContent = "";
-//                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//
-//                    emailIntent.setData(Uri.parse("mailto:"));
-//                    emailIntent.setType("text/plain");
-//                    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//                    emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen " + selectedRecordCounter);
-//                    for (Record r : selectedRecords) {
-//                        mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() + "%" + r.getCrp() + "crp)\n";
-//                    }
-//                    emailIntent.putExtra(Intent.EXTRA_TEXT, mailContent);
-//
-//                    try {
-//                        startActivity(Intent.createChooser(emailIntent, "Email senden"));
-//                        finish();
-//                        Log.i("Senden abgeschlossen", "");
-//                    } catch (android.content.ActivityNotFoundException ex) {
-//                        Toast.makeText(RecordsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//                    }
-//                    Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gesendet",Toast.LENGTH_SHORT).show();
-//                    mode.finish(); // Action picked, so close the CAB
-//                    return true;
-//                default:
-//                    return false;
-//            }
-//        }
-//
-//        // Called when the user exits the action mode
-//        @Override
-//        public void onDestroyActionMode(ActionMode mode) {
-//            mActionMode = null;
-//        }
-//    };
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -204,6 +134,7 @@ public class RecordsActivity extends AppCompatActivity {
                 Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
                 startThis.putExtra("oldRecord", selectedRecord);
                 startActivity(startThis);
+                view.setSelected(true);
             }
         });
 //        recordsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

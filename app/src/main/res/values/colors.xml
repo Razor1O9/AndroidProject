@@ -2,5 +2,7 @@
 <resources>
     <color name="colorPrimary">#b20000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#ffffff </color>
+    <drawable name="redSelectHighlighting">#b20000</drawable>
+    <drawable name="blueSelectHighlighting">#1703F4</drawable>
 </resources>
