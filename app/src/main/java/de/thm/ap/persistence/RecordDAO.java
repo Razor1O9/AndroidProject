@@ -38,9 +38,9 @@ public class RecordDAO {
     }
 
     /**
-       Gibt Record mit der angegebenen ID zurück
-       oder Null falls kein mit dieser ID gefunden wurde (=Optional)
-       @return Record
+     Gibt Record mit der angegebenen ID zurück
+     oder Null falls kein mit dieser ID gefunden wurde (=Optional)
+     @return Record
      */
     public Optional<Record> findById(int id) {
         for (Record recordItem : records) {
@@ -49,6 +49,19 @@ public class RecordDAO {
         }
         return Optional.empty();
     }
+    /**
+     Gibt Record mit der angegebenen ID zurück
+     oder Null falls kein mit dieser ID gefunden wurde (=Optional)
+     @return Record
+     */
+    public int findIndex(int id) {
+        for (Record recordItem : records) {
+            if (recordItem.getId().equals(id))
+                return records.indexOf(recordItem);
+        }
+        return -1; //TODO besser machen
+    }
+
     /**
      * Ersetzt das übergebene {@link Record} Objekt mit einem bereits gespeicherten {@link Record} Objekt mit gleicher id.
      *
@@ -80,7 +93,7 @@ public class RecordDAO {
      */
     public boolean delete(List<Record> recordListToDelete) {
         for (Record recordToDelete : recordListToDelete) {
-            records.remove(findById(recordToDelete.getId()));
+            records.remove(findIndex(recordToDelete.getId()));
             saveRecords();
         }
         return true;
