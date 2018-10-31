@@ -47,11 +47,9 @@ public class Stats {
                 averageMarkHalfWeight += recordItem.getMark();
             else averageMarkFullWeight += recordItem.getMark();
 
-            if(recordItem.getMark() == 0)
+            if(recordItem.getMark() < 50)
                 ungradedRecords++;
         }
-
-
 
         return (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / ((records.size() - ungradedRecords) - (getSumHalfWeighted()*0.5) ));
     }
