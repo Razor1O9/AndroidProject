@@ -92,11 +92,9 @@ public class RecordFormActivity extends AppCompatActivity {
 
         Boolean isValid = true;
 
-        if (!("".equals(selectedNum))) {
-            if(!isModuleNr(selectedNum)){
-                moduleNum.setError(getString(R.string.module_number_not_valid));
-                isValid = false;
-            }
+        if (!("".equals(selectedNum)) && !isModuleNr(selectedNum)) {
+            moduleNum.setError(getString(R.string.module_number_not_valid));
+            isValid = false;
         }
         if ("".equals(selectedName)) {
             moduleName.setError(getString(R.string.module_name_not_empty));

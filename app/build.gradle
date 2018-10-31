@@ -32,4 +32,5 @@ dependencies {
     implementation 'org.junit:junit4-engine:5.0.0-ALPHA'
     implementation 'org.junit:junit4-runner:5.0.0-ALPHA'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:mediarouter-v7:27.1.1'
 }

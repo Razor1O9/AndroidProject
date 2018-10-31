@@ -170,7 +170,7 @@ public class RecordsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
-                        statDialog.cancel();
+                        dialog.cancel();
 
                     }
                 });
