@@ -58,7 +58,7 @@ public class RecordsActivity extends AppCompatActivity {
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
                 }
             }
-            // TEST
+
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 // Respond to clicks on the actions in the CAB
@@ -71,14 +71,18 @@ public class RecordsActivity extends AppCompatActivity {
                         Log.i("Email senden","");
                         String[] TO = {""};
                         String[] CC = {""};
+                        String mailContent = "";
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
                         emailIntent.setData(Uri.parse("mailto:"));
                         emailIntent.setType("text/plain");
                         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
                         emailIntent.putExtra(Intent.EXTRA_CC, CC);
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen");
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, "INHALT DER MAIL"); // ToDo
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen " + selectedRecordCounter);
+                        for (Record r: selectedRecords) {
+                            mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() +"%" + r.getCrp() + "crp)\n";
+                        }
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, mailContent);
 
                         try {
                             startActivity(Intent.createChooser(emailIntent, "Email senden"));

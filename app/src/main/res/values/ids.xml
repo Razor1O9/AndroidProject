@@ -8,6 +8,6 @@
     <item name="year_value" type="id" />
     <item name="term_value" type="id" />
     <item name="halfweight_value" type="id" />
-    <item name="menu_send" type="id" />
     <item name="menu_delete" type="id" />
+    <item name="menu_send" type="id" />
 </resources>
