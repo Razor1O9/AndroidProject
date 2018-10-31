@@ -94,7 +94,7 @@ public class RecordsActivity extends AppCompatActivity {
                         emailIntent.putExtra(Intent.EXTRA_CC, CC);
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen " + selectedRecordCounter);
                         for (Record r : selectedRecords) {
-                            mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() + "%" + r.getCrp() + "crp)\n";
+                            mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() + "% " + r.getCrp() + " crp)\n";
                         }
                         emailIntent.putExtra(Intent.EXTRA_TEXT, mailContent);
 
