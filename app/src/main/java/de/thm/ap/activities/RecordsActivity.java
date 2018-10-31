@@ -40,18 +40,7 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
 
         //TextView textView = findViewById(R.id.text_view);
-        recordsListView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (mActionMode != null) {
-                    return false;
-                }
 
-                mActionMode = startSupportActionMode(mActionModeCallback);
-                v.setSelected(true);
-                return true;
-            }
-        });
     }
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 //  Called when the action mode is created; startActionMode() was called
@@ -142,7 +131,7 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         records = new RecordDAO(this).findAll();
-        ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, records);
+        ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
 
         // On click -> edit List Item
@@ -153,6 +142,18 @@ public class RecordsActivity extends AppCompatActivity {
                 Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
                 startThis.putExtra("oldRecord", selectedRecord);
                 startActivity(startThis);
+            }
+        });
+        recordsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mActionMode != null) {
+                    return false;
+                }
+
+                mActionMode = startSupportActionMode(mActionModeCallback);
+                view.setSelected(true);
+                return true;
             }
         });
     }
