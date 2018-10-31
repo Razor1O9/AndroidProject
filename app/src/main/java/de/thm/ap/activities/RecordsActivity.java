@@ -1,6 +1,7 @@
 package de.thm.ap.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -155,8 +156,9 @@ public class RecordsActivity extends AppCompatActivity {
                 return true;
             case R.id.action_stats:
                 AlertDialog.Builder stats = new AlertDialog.Builder(this);
-                stats.setTitle(getString(R.string.statistics_header));
-                stats.setMessage(
+                AlertDialog statDialog = stats.create();
+                statDialog.setTitle(getString(R.string.statistics_header));
+                statDialog.setMessage(
                         getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
                                 getString(R.string.statistics_halfweight_record_count) + " " + statistics.getSumHalfWeighted() + "\n" +
                                 getString(R.string.statistics_sum) + " " + statistics.getSumCrp() + "\n" +
@@ -164,14 +166,16 @@ public class RecordsActivity extends AppCompatActivity {
                                 getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
 
                 );
-                stats.setNeutralButton("Schließen", null);
-                stats.show();
+                stats.setNegativeButton(R.string.statistics_close_button,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        statDialog.cancel();
+
+                    }
+                });
+                statDialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-    /*
-
-     */
 }

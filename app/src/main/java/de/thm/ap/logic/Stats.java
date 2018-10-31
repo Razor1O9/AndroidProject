@@ -53,8 +53,7 @@ public class Stats {
             if(recordItem.getMark() < 50)
                 ungradedRecords++;
         }
-
-        return (int)Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / ((records.size() - ungradedRecords) - (getSumHalfWeighted()*0.5) ));
+        return (int) Math.round((averageMarkFullWeight + (averageMarkHalfWeight*0.5)) / ((records.size() - ungradedRecords) - (getSumHalfWeighted()*0.5) ));
     }
 
 }

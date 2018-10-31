@@ -33,6 +33,7 @@
     <string name="hint_record_weighting">50% Gewichtung</string>
     <string name="hint_record_cp">Credit Points</string>
     <string name="mark_not_valid">Note ungültig</string>
+    <string name="statistics_close_button">Schließen</string>
 </resources>
 
 
