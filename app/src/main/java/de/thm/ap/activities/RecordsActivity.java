@@ -1,6 +1,5 @@
 package de.thm.ap.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
@@ -14,25 +13,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
-import android.view.ActionMode;
-import android.view.MenuInflater;
-import android.widget.AbsListView;
+import android.support.v7.view.ActionMode;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
-
 import java.util.List;
-
-import de.thm.ap.persistence.RecordDAO;
-
 import android.view.MenuItem;
-
+import de.thm.ap.persistence.RecordDAO;
 
 /*
  / This class is the main class and displays all current records in a table
  */
 
 public class RecordsActivity extends AppCompatActivity {
+    private ActionMode mActionMode;
     private ListView recordsListView;
     private List<Record> records;
     private List<Record> selectedRecords;
@@ -45,80 +39,105 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
 
-        recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        //TextView textView = findViewById(R.id.text_view);
+        recordsListView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                if (checked) {
-                    selectedRecords.add(records.get(position));
-                    selectedRecordCounter++;
-                    mode.setTitle(selectedRecordCounter + " ausgewählt");
-                } else {
-                    selectedRecords.remove(records.get(position));
-                    selectedRecordCounter--;
-                    mode.setTitle(selectedRecordCounter + " ausgewählt");
+            public boolean onLongClick(View v) {
+                if (mActionMode != null) {
+                    return false;
                 }
-            }
 
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                // Respond to clicks on the actions in the CAB
-                switch (item.getItemId()) {
-                    case R.id.menu_delete:
-                        new RecordDAO(getBaseContext()).delete(selectedRecords);
-                        mode.finish(); // Action picked, so close the CAB
-                        return true;
-                    case R.id.menu_send:
-                        Log.i("Email senden","");
-                        String[] TO = {""};
-                        String[] CC = {""};
-                        String mailContent = "";
-                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-                        emailIntent.setData(Uri.parse("mailto:"));
-                        emailIntent.setType("text/plain");
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-                        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen " + selectedRecordCounter);
-                        for (Record r: selectedRecords) {
-                            mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() +"%" + r.getCrp() + "crp)\n";
-                        }
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, mailContent);
-
-                        try {
-                            startActivity(Intent.createChooser(emailIntent, "Email senden"));
-                            finish();
-                            Log.i("Senden abgeschlossen", "");
-                        } catch (android.content.ActivityNotFoundException ex) {
-                            Toast.makeText(RecordsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        mode.finish(); // Action picked, so close the CAB
-                    default:
-                        return false;
-                }
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                // Inflate the menu for the CAB
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.context, menu);
+                mActionMode = startSupportActionMode(mActionModeCallback);
+                v.setSelected(true);
                 return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
             }
         });
     }
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+//  Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.context_menu, menu);
+            mode.setTitle("Choose your option");
+//          Inflate a menu resource providing context_menu menu items
+//          MenuInflater inflater = mode.getMenuInflater();
+//          inflater.inflate(R.menu.context_menu, menu);
+            return true;
+        }
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+        @Override
+        // Called when the user selects a contextual menu item
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            // Respond to clicks on the actions in the CAB
+            switch (item.getItemId()) {
+                case R.id.menu_delete:
+                    Toast.makeText(RecordsActivity.this, "Option 1 selected", Toast.LENGTH_SHORT).show();
+                    new RecordDAO(getBaseContext()).delete(selectedRecords);
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                case R.id.menu_send:
+                    Toast.makeText(RecordsActivity.this, "Option 2 selected", Toast.LENGTH_SHORT).show();
+                    Log.i("Email senden", "");
+                    String[] TO = {""};
+                    String[] CC = {""};
+                    String mailContent = "";
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                    emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Meine Leistungen " + selectedRecordCounter);
+                    for (Record r : selectedRecords) {
+                        mailContent = mailContent + r.getModuleName() + " " + r.getModuleNum() + " " + "(" + r.getMark() + "%" + r.getCrp() + "crp)\n";
+                    }
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, mailContent);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Email senden"));
+                        finish();
+                        Log.i("Senden abgeschlossen", "");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(RecordsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
+
+
+//public class RecordsActivity extends AppCompatActivity {
+//        recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+//        recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+//            @Override
+//            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+//                if (checked) {
+//                    selectedRecords.add(records.get(position));
+//                    selectedRecordCounter++;
+//                    mode.setTitle(selectedRecordCounter + " ausgewählt");
+//                } else {
+//                    selectedRecords.remove(records.get(position));
+//                    selectedRecordCounter--;
+//                    mode.setTitle(selectedRecordCounter + " ausgewählt");
+//                }
+//            }
+//
+//
+//        });
     @Override
     protected void onStart() {
         super.onStart();
@@ -151,7 +170,7 @@ public class RecordsActivity extends AppCompatActivity {
         Stats statistics = new Stats(records);
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent intent = new Intent(getApplicationContext(),RecordFormActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RecordFormActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.action_stats:
@@ -166,7 +185,7 @@ public class RecordsActivity extends AppCompatActivity {
                                 getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
 
                 );
-                stats.setNegativeButton(R.string.statistics_close_button,new DialogInterface.OnClickListener() {
+                stats.setNegativeButton(R.string.statistics_close_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
