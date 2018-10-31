@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.records.model.Record;
+
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +19,11 @@ import android.support.v7.view.ActionMode;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+
 import java.util.List;
+
 import android.view.MenuItem;
+
 import de.thm.ap.persistence.RecordDAO;
 
 /*
@@ -38,12 +43,10 @@ public class RecordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_records);
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
-
-        //TextView textView = findViewById(R.id.text_view);
-
     }
+
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-//  Called when the action mode is created; startActionMode() was called
+        //  Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.context_menu, menu);
@@ -53,12 +56,14 @@ public class RecordsActivity extends AppCompatActivity {
 //          inflater.inflate(R.menu.context_menu, menu);
             return true;
         }
+
         // Called each time the action mode is shown. Always called after onCreateActionMode, but
         // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false; // Return false if nothing is done
         }
+
         @Override
         // Called when the user selects a contextual menu item
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
@@ -101,6 +106,7 @@ public class RecordsActivity extends AppCompatActivity {
                     return false;
             }
         }
+
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
@@ -109,7 +115,7 @@ public class RecordsActivity extends AppCompatActivity {
     };
 
 
-//public class RecordsActivity extends AppCompatActivity {
+    //public class RecordsActivity extends AppCompatActivity {
 //        recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 //        recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 //            @Override
