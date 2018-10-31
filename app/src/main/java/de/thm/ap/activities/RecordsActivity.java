@@ -63,7 +63,26 @@ public class RecordsActivity extends AppCompatActivity {
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false; // Return false if nothing is done
         }
+        // ToDo not Working...
+        recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener()
 
+        {
+            @Override
+            public void onItemCheckedStateChanged (ActionMode mode,int position, long id, boolean checked){
+            if (checked) {
+                selectedRecords.add(records.get(position));
+                selectedRecordCounter++;
+                mode.setTitle(selectedRecordCounter + " ausgewählt");
+            } else {
+                selectedRecords.remove(records.get(position));
+                selectedRecordCounter--;
+                mode.setTitle(selectedRecordCounter + " ausgewählt");
+            }
+        }
+
+
+        }
         @Override
         // Called when the user selects a contextual menu item
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
@@ -113,26 +132,6 @@ public class RecordsActivity extends AppCompatActivity {
             mActionMode = null;
         }
     };
-
-
-    //public class RecordsActivity extends AppCompatActivity {
-//        recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-//        recordsListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-//            @Override
-//            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-//                if (checked) {
-//                    selectedRecords.add(records.get(position));
-//                    selectedRecordCounter++;
-//                    mode.setTitle(selectedRecordCounter + " ausgewählt");
-//                } else {
-//                    selectedRecords.remove(records.get(position));
-//                    selectedRecordCounter--;
-//                    mode.setTitle(selectedRecordCounter + " ausgewählt");
-//                }
-//            }
-//
-//
-//        });
     @Override
     protected void onStart() {
         super.onStart();
