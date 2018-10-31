@@ -96,15 +96,15 @@ public class RecordFormActivity extends AppCompatActivity {
             moduleNum.setError(getString(R.string.module_number_not_valid));
             isValid = false;
         }
-        if ("".equals(selectedName)) {
+        if (selectedName.equals(null)) {
             moduleName.setError(getString(R.string.module_name_not_empty));
             isValid = false;
         }
-        if ("".equals(selectedCrp)) {
+        if (selectedCrp.equals(null)) {
             creditPoints.setError(getString(R.string.credit_points_not_empty));
             isValid = false;
         }
-        if ("".equals(selectedMark)) {
+        if (selectedMark.equals(null)) {
             mark.setError(getString(R.string.mark_not_empty));
             isValid = false;
         }
