@@ -80,6 +80,7 @@ public class RecordsActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
+                        onStart();
                         return true;
                     case R.id.menu_send:
                         Log.i("Email senden", "");
