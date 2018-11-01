@@ -83,6 +83,7 @@ public class RecordsActivity extends AppCompatActivity {
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
                         adapter.clear();
+                        records = new RecordDAO(getBaseContext()).findAll();
                         adapter.addAll(records);
                         return true;
                     case R.id.menu_send:
@@ -147,6 +148,7 @@ public class RecordsActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RecordFormActivity.RESULT_OK){
                 adapter.clear();
+                records = new RecordDAO(this).findAll();
                 adapter.addAll(records);
             }
             if (resultCode == RecordFormActivity.RESULT_CANCELED) {
