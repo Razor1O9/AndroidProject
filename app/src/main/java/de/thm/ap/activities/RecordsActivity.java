@@ -37,6 +37,7 @@ public class RecordsActivity extends AppCompatActivity {
     private List<Record> records = new ArrayList<>();
     private List<Record> selectedRecords = new ArrayList<>();
     private int selectedRecordCounter = 0;
+    ArrayAdapter<Record> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,8 @@ public class RecordsActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
-                        onStart();
+                        adapter.clear();
+                        adapter.addAll(records);
                         return true;
                     case R.id.menu_send:
                         Log.i("Email senden", "");
@@ -124,7 +126,7 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         records = new RecordDAO(this).findAll();
-        ArrayAdapter<Record> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
 
         // On click -> edit List Item
@@ -138,6 +140,19 @@ public class RecordsActivity extends AppCompatActivity {
                 view.setSelected(true);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == RecordFormActivity.RESULT_OK){
+                adapter.clear();
+                adapter.addAll(records);
+            }
+            if (resultCode == RecordFormActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override
