@@ -81,7 +81,7 @@ public class RecordDAO {
     /**
      * Löscht das übergebene {@link Record} Objekt
      *
-     * @param List<Record>
+     * @param recordListToDelete, zu löschende Elemente
      * @return true = delete ok, false = löschen Fehlgeschlagen
      */
     public boolean delete(List<Record> recordListToDelete) {
