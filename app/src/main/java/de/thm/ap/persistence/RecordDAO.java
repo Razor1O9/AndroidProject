@@ -62,8 +62,10 @@ public class RecordDAO {
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
      */
     public boolean update(Record record) {
-        delete(record);
-        records.add(record);
+        for (int i = 0; i <= records.size(); i++) {
+            if (records.get(i).equals(record))
+                records.set(i, record);
+        }
         saveRecords();
 //        if (findById(record.getId()).isPresent()){
 //            findById(record.getId()).get(); // findById = optional wrapped, get holt aus dem optional das objekt+
