@@ -134,10 +134,23 @@ public class RecordsActivity extends AppCompatActivity {
                 Record selectedRecord = (Record) parent.getItemAtPosition(position);
                 Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
                 startThis.putExtra("oldRecord", selectedRecord);
-                startActivity(startThis);
+                startActivityForResult(startThis, 1);
                 view.setSelected(true);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == RecordFormActivity.RESULT_OK){
+                adapter.clear();
+                adapter.addAll();
+            }
+            if (resultCode == RecordFormActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override

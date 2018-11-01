@@ -1,5 +1,6 @@
 package de.thm.ap.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import de.thm.ap.R;
@@ -140,10 +141,15 @@ public class RecordFormActivity extends AppCompatActivity {
             }
             // persist record and finish activity
             if (isUpdate) {
-
                 new RecordDAO(this).update(record);
+                Intent returnIntent = new Intent();
+                setResult(RecordsActivity.RESULT_OK, returnIntent);
+                finish();
             } else {
                 new RecordDAO(this).persist(record);
+                Intent returnIntent = new Intent();
+                setResult(RecordsActivity.RESULT_OK, returnIntent);
+                finish();
             }
             finish();
         }
@@ -180,5 +186,6 @@ public class RecordFormActivity extends AppCompatActivity {
     private static boolean isModuleNr(String s){
         return s.matches("[a-zA-Z]{2}[0-9]{4}");
     }
+
 }
 
