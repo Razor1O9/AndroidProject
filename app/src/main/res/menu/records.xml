@@ -13,4 +13,5 @@
         android:id="@+id/action_stats"
         app:showAsAction="never"
         android:title="@string/stats"/>
+
 </menu>

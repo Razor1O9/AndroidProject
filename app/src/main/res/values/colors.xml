@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b20000</color>
+    <color name="colorPrimary">#ff302d</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ffffff </color>
-    <drawable name="redSelectHighlighting">#b20000</drawable>
-    <drawable name="blueSelectHighlighting">#1703F4</drawable>
+    <color name="colorAccent">#ff9f9f</color>
 </resources>

@@ -53,6 +53,7 @@ public class RecordsActivity extends AppCompatActivity {
                     selectedRecordCounter++;
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
                     selectedRecords.add(records.get(position));
+                    //mode.getCustomView().isSelected();
                 } else {
                     selectedRecordCounter--;
                     mode.setTitle(selectedRecordCounter + " ausgewählt");
@@ -137,18 +138,6 @@ public class RecordsActivity extends AppCompatActivity {
                 view.setSelected(true);
             }
         });
-//        recordsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (mActionMode != null) {
-//                    return false;
-//                }
-//
-//                mActionMode = startSupportActionMode(mActionModeCallback);
-//                view.setSelected(true);
-//                return true;
-//            }
-//        });
     }
 
     @Override
@@ -168,10 +157,10 @@ public class RecordsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_stats:
-                AlertDialog.Builder stats = new AlertDialog.Builder(this);
-                AlertDialog statDialog = stats.create();
-                statDialog.setTitle(getString(R.string.statistics_header));
-                statDialog.setMessage(
+                AlertDialog.Builder statBuilder = new AlertDialog.Builder(this);
+                //AlertDialog statDialog = statBuilder.create();
+                statBuilder.setTitle(getString(R.string.statistics_header));
+                statBuilder.setMessage(
                         getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
                                 getString(R.string.statistics_halfweight_record_count) + " " + statistics.getSumHalfWeighted() + "\n" +
                                 getString(R.string.statistics_sum) + " " + statistics.getSumCrp() + "\n" +
@@ -179,15 +168,8 @@ public class RecordsActivity extends AppCompatActivity {
                                 getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
 
                 );
-                stats.setNegativeButton(R.string.statistics_close_button, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-
-                    }
-                });
-                statDialog.show();
+                statBuilder.setNeutralButton(R.string.statistics_close_button, null);
+                statBuilder.show();
         }
         return super.onOptionsItemSelected(item);
     }

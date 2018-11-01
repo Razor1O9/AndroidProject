@@ -29,6 +29,7 @@ public class RecordFormActivity extends AppCompatActivity {
     private AutoCompleteTextView moduleName;
     private Spinner year;
     private Boolean isUpdate = false;
+    private int oldID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class RecordFormActivity extends AppCompatActivity {
 
         if (extras != null) {
             Record oldRecord = (Record)extras.getSerializable("oldRecord");
+            oldID = oldRecord.getId();
             isUpdate = true;
             moduleName.setText(oldRecord.getModuleName());
             moduleNum.setText(oldRecord.getModuleNum());
@@ -130,6 +132,7 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setHalfWeighted(halfweight.isChecked());
             record.setSummerTerm(term.isChecked());
             record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
+            record.setID(oldID);
             if(isParseable(selectedMark)){
                 record.setMark(Integer.parseInt(selectedMark));
             } else {
@@ -137,6 +140,7 @@ public class RecordFormActivity extends AppCompatActivity {
             }
             // persist record and finish activity
             if (isUpdate) {
+
                 new RecordDAO(this).update(record);
             } else {
                 new RecordDAO(this).persist(record);

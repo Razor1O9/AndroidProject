@@ -5,9 +5,11 @@ import de.thm.ap.records.model.Record;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+
 import android.content.Context;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -24,6 +26,7 @@ public class RecordDAO {
     private Context ctx;
     private List<Record> records;
     private int nextId = 1;
+
     public RecordDAO(Context ctx) {
         this.ctx = ctx;
         initRecords();
@@ -31,16 +34,18 @@ public class RecordDAO {
 
     /**
      * Kein Parameter, schlichter Aufruf.
-       @return Records
+     *
+     * @return Records
      */
     public List<Record> findAll() {
         return records;
     }
 
     /**
-     Gibt Record mit der angegebenen ID zurück
-     oder Null falls kein mit dieser ID gefunden wurde (=Optional)
-     @return Record
+     * Gibt Record mit der angegebenen ID zurück
+     * oder Null falls kein mit dieser ID gefunden wurde (=Optional)
+     *
+     * @return Record
      */
     public Optional<Record> findById(int id) {
         for (Record recordItem : records) {
@@ -48,18 +53,6 @@ public class RecordDAO {
                 return Optional.of(recordItem);
         }
         return Optional.empty();
-    }
-    /**
-     Gibt Record mit der angegebenen ID zurück
-     oder Null falls kein mit dieser ID gefunden wurde (=Optional)
-     @return Record
-     */
-    public int findIndex(int id) {
-        for (Record recordItem : records) {
-            if (recordItem.getId().equals(id))
-                return records.indexOf(recordItem);
-        }
-        return -1; //TODO besser machen
     }
 
     /**
@@ -69,7 +62,7 @@ public class RecordDAO {
      * @return true = update ok, false = kein {@link Record} Objekt mit gleicher id im Speicher gefunden
      */
     public boolean update(Record record) {
-        delete(Arrays.asList(record));
+        delete(record);
         records.add(record);
         saveRecords();
 //        if (findById(record.getId()).isPresent()){
@@ -93,9 +86,23 @@ public class RecordDAO {
      */
     public boolean delete(List<Record> recordListToDelete) {
         for (Record recordToDelete : recordListToDelete) {
-            records.remove(findIndex(recordToDelete.getId()));
-            saveRecords();
+            delete(recordToDelete);
         }
+        return true;
+    }
+
+    public boolean delete(Record delRecord) {
+        Optional<Record> deleteRec = findById(delRecord.getId());
+        if (deleteRec.isPresent()) {
+            for (Iterator<Record> iter = records.listIterator(); iter.hasNext(); ) {
+                Record iterRec = iter.next();
+
+                if (iterRec.getId() == deleteRec.get().getId()) {
+                    iter.remove(); // zeigt in der Liste auf das aktuelle Element
+                }
+            }
+        }
+        saveRecords();
         return true;
     }
 
