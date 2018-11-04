@@ -1,5 +1,9 @@
 package de.thm.ap.records.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
 /*
@@ -7,14 +11,30 @@ import java.io.Serializable;
  / Die Klasse definiert sowohl die Gültigkeit als auch die Ausgabe von Einträgen.
  */
 
+@Entity
 public class Record implements Serializable {
-    private String moduleName;
-    private String moduleNum;
-    private int mark;
+    @PrimaryKey(autoGenerate=true)
     private int id;
+
+    @ColumnInfo (name = "module_name")
+    private String moduleName;
+
+    @ColumnInfo (name = "module_number")
+    private String moduleNum;
+
+    @ColumnInfo (name = "mark")
+    private int mark;
+
+    @ColumnInfo (name = "year")
     private int year;
+
+    @ColumnInfo (name = "crp")
     private int crp;
+
+    @ColumnInfo (name = "summer_term")
     private boolean summerTerm;
+
+    @ColumnInfo (name = "half_weight")
     private boolean halfWeight;
 
 
