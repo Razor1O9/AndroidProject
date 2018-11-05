@@ -76,7 +76,7 @@ public class RecordFormActivity extends AppCompatActivity {
             mark.setText(String.valueOf(oldRecord.getMark()));
             creditPoints.setText(String.valueOf(oldRecord.getCrp()));
             term.setChecked(oldRecord.isSummerTerm());
-            halfweight.setChecked(oldRecord.isHalfWeighted());
+            halfweight.setChecked(oldRecord.getHalfWeight());
             for (int i=0;i<year.getCount();i++){
                 if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(oldRecord.getYear()))){
                     year.setSelection(i);
@@ -141,7 +141,8 @@ public class RecordFormActivity extends AppCompatActivity {
             }
             // persist record and finish activity
             if (isUpdate) {
-                new RecordDAO(this).update(record);
+//                new RecordDAO(this).update(record);
+
                 Intent returnIntent = new Intent();
                 setResult(RecordsActivity.RESULT_OK, returnIntent);
                 finish();

@@ -48,66 +48,69 @@ public class Record implements Serializable {
         this.mark = mark;
     }
 
-    public void setModuleName(String data) {
-        moduleName = data;
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public String getModuleName() {
         return moduleName;
     }
 
-    public void setModuleNum(String data) {
-        moduleNum = data;
+    public void setModuleNum(String moduleNum) {
+        this.moduleNum = moduleNum;
     }
 
     public String getModuleNum() {
         return moduleNum;
     }
 
-    public void setID(int inputID) {
-        id = inputID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setYear(int inputYear) {
-        year = inputYear;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public long getYear() {
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getYear() {
         return year;
     }
 
-    public void setSummerTerm(boolean term) {
-        summerTerm = term;
+    public void setSummerTerm(boolean summerTerm) {
+        this.summerTerm = summerTerm;
     }
 
     public boolean isSummerTerm() {
         return summerTerm;
     }
 
-    public void setHalfWeighted(boolean half) {
-        halfWeight = half;
+    public void setHalfWeighted(boolean halfWeight) {
+        this.halfWeight = halfWeight;
     }
 
-    public boolean isHalfWeighted() {
+    public boolean getHalfWeight() {
         return halfWeight;
     }
 
-    public void setCrp(int cp) {
-        crp = cp;
+    public void setCrp(int crp) {
+        this.crp = crp;
     }
 
-    public long getCrp() {
+    public int getCrp() {
         return crp;
     }
 
-    public void setMark(int input) {
-        mark = input;
+    public void setMark(int mark) {
+        this.mark = mark;
     }
-
 
     public int getMark() {
         return mark;

@@ -20,14 +20,11 @@ public interface RecordDAO {
     void persist(Record record);
 
     @Update
-    boolean update(Record record);
+    int update(Record record);
 
-    @Query("SELECT * FROM record WHERE record.id=id") //TODO Macht das Sinn?
+    @Query("SELECT * FROM record WHERE id = :id") //TODO Macht das Sinn?
     Optional<Record> findById(int id);
 
     @Delete
-    boolean delete(Record delRecord);
-
-    @Delete
-    boolean delete(List<Record> recordListToDelete);
+    int delete(List<Record> recordListToDelete);
 }
