@@ -53,7 +53,7 @@ public class AppContentProvider extends ContentProvider {
                 .getReadableDatabase();
         return db.query(builder.create());
     }
-    }
+
 
     @Override
     public String getType(Uri uri) {
