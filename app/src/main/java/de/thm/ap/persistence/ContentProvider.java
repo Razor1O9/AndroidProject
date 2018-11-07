@@ -3,8 +3,12 @@ package de.thm.ap.persistence;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.content.ContentProvider;
 
-public class ContentProvider extends android.content.ContentProvider {
+public class RecordContentProvider extends ContentProvider {
+
+    static final String PROVIER_NAME = "de.thm.ap.persistence.ContactProvider";
+
     @Override
     public boolean onCreate() {
         return false;
