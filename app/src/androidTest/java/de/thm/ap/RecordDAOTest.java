@@ -85,7 +85,7 @@ public class RecordDAOTest {
         assertEquals(record.getModuleName(), recordUpdate.getModuleName());
         assertEquals(record.getYear(), recordUpdate.getYear());
         assertEquals(record.isSummerTerm(), recordUpdate.isSummerTerm());
-        assertEquals(record.isHalfWeighted(), recordUpdate.isHalfWeighted());
+        assertEquals(record.getHalfWeight(), recordUpdate.getHalfWeight());
         assertEquals(record.getCrp(), recordUpdate.getCrp());
         assertEquals(record.getMark(), recordUpdate.getMark());
 
@@ -107,7 +107,7 @@ public class RecordDAOTest {
         assertEquals(record.getModuleName(), recordNew.getModuleName());
         assertEquals(record.getYear(), recordNew.getYear());
         assertEquals(record.isSummerTerm(), recordNew.isSummerTerm());
-        assertEquals(record.isHalfWeighted(), recordNew.isHalfWeighted());
+        assertEquals(record.getHalfWeight(), recordNew.getHalfWeight());
         assertEquals(record.getCrp(), recordNew.getCrp());
         assertEquals(record.getMark(), recordNew.getMark());
     }

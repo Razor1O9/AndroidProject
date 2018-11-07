@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ArrayAdapter;
 import android.view.View;
 
+import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
-import de.thm.ap.persistence.RecordDAO;
 
 import java.util.Optional;
 
@@ -76,7 +76,7 @@ public class RecordFormActivity extends AppCompatActivity {
             mark.setText(String.valueOf(oldRecord.getMark()));
             creditPoints.setText(String.valueOf(oldRecord.getCrp()));
             term.setChecked(oldRecord.isSummerTerm());
-            halfweight.setChecked(oldRecord.isHalfWeighted());
+            halfweight.setChecked(oldRecord.getHalfWeight());
             for (int i=0;i<year.getCount();i++){
                 if (year.getItemAtPosition(i).toString().equalsIgnoreCase(String.valueOf(oldRecord.getYear()))){
                     year.setSelection(i);
@@ -86,13 +86,11 @@ public class RecordFormActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-
         String selectedName = moduleName.getText().toString();
         String selectedNum = moduleNum.getText().toString();
         String selectedYear = year.getSelectedItem().toString();
         String selectedCrp = creditPoints.getText().toString();
         String selectedMark = mark.getText().toString();
-
         Boolean isValid = true;
 
         if (!selectedNum.isEmpty() && !isModuleNr(selectedNum)) {
@@ -134,26 +132,26 @@ public class RecordFormActivity extends AppCompatActivity {
             record.setSummerTerm(term.isChecked());
             record.setCrp(Integer.parseInt(String.valueOf(selectedCrp)));
             record.setID(oldID);
-            if(isParseable(selectedMark)){
+            if(isParsable(selectedMark)){
                 record.setMark(Integer.parseInt(selectedMark));
             } else {
                 record.setMark(0);
             }
             // persist record and finish activity
             if (isUpdate) {
-                new RecordDAO(this).update(record);
+//                new RecordDAO(this).update(record);
+                AppDatabase.getDb(this).recordDAO().update(record);
                 Intent returnIntent = new Intent();
                 setResult(RecordsActivity.RESULT_OK, returnIntent);
                 finish();
             } else {
-                new RecordDAO(this).persist(record);
+//                new RecordDAO(this).persist(record);
+                AppDatabase.getDb(this).recordDAO().persist(record);
                 Intent returnIntent = new Intent();
                 setResult(RecordsActivity.RESULT_OK, returnIntent);
                 finish();
             }
-            finish();
         }
-
     }
 
     @Override
@@ -174,18 +172,18 @@ public class RecordFormActivity extends AppCompatActivity {
         return s.matches("\\d+");
     }
 
-    private static boolean isParseable(String s){
-        boolean parseable = true;
+    private static boolean isParsable(String s){
+        boolean parsable = true;
         try{
             Integer.parseInt(s);
         } catch (Exception e){
-            parseable = false;
+            parsable = false;
         }
-        return parseable;
+        return parsable;
     }
+
     private static boolean isModuleNr(String s){
         return s.matches("[a-zA-Z]{2}[0-9]{4}");
     }
-
 }
 

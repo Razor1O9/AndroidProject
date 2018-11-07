@@ -1,5 +1,8 @@
 package de.thm.ap.activities;
 
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
+import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
@@ -38,6 +42,7 @@ public class RecordsActivity extends AppCompatActivity {
     private List<Record> selectedRecords = new ArrayList<>();
     private int selectedRecordCounter = 0;
     ArrayAdapter<Record> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +83,14 @@ public class RecordsActivity extends AppCompatActivity {
                 // Respond to clicks on the actions in the CAB
                 switch (item.getItemId()) {
                     case R.id.menu_delete:
-                        new RecordDAO(getBaseContext()).delete(selectedRecords);
+//                        new RecordDAO(getBaseContext()).delete(selectedRecords);
+                        AppDatabase.getDb(RecordsActivity.this).recordDAO().delete(selectedRecords);
                         Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
                         adapter.clear();
-                        records = new RecordDAO(getBaseContext()).findAll();
+//                        records = new RecordDAO(getBaseContext()).findAll();
+                        records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
                         adapter.addAll(records);
                         return true;
                     case R.id.menu_send:
@@ -126,7 +133,7 @@ public class RecordsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        records = new RecordDAO(this).findAll();
+        records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
 
@@ -148,7 +155,8 @@ public class RecordsActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RecordFormActivity.RESULT_OK){
                 adapter.clear();
-                records = new RecordDAO(this).findAll();
+//                records = new RecordDAO(this).findAll();
+                records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
                 adapter.addAll(records);
             }
             if (resultCode == RecordFormActivity.RESULT_CANCELED) {

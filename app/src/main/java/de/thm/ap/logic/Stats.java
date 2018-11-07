@@ -35,7 +35,7 @@ public class Stats {
     public int getSumHalfWeighted() {
         fiftyPercentCount = 0;
         for (Record recordItemHalf : records) {
-            if (recordItemHalf.isHalfWeighted())
+            if (recordItemHalf.getHalfWeight())
                 fiftyPercentCount += 1;
         }
         return fiftyPercentCount;
@@ -46,7 +46,7 @@ public class Stats {
         int averageMarkHalfWeight = 0;
         int ungradedRecords = 0;
         for (Record recordItem : records) {
-            if (recordItem.isHalfWeighted())
+            if (recordItem.getHalfWeight())
                 averageMarkHalfWeight += recordItem.getMark();
             else averageMarkFullWeight += recordItem.getMark();
 
