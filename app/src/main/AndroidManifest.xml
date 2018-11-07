@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.thm.ap">
     <permission
-        android:name="de.thm.ap.records.permission.ACCESS_PROVIDER"
+        android:name="de.thm.ap.permission.ACCESS_PROVIDER"
         android:protectionLevel="normal" />
 
 
@@ -19,9 +19,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="de.thm.ap.persistence.AppContentProvider"
-            android:authorities="de.thm.ap.records.cp"
+            android:authorities="de.thm.ap"
             android:exported="true"
-            android:permission="de.thm.ap.records.permission.ACCESS_PROVIDER" />
+            android:permission="de.thm.ap.permission.ACCESS_PROVIDER" />
         <activity
             android:name=".activities.RecordsActivity"
             android:theme="@style/Highlighting" >

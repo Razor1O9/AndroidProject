@@ -9,10 +9,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class AppContentProvider extends ContentProvider {
-
-    static final String PROVIER_NAME = "de.thm.ap.persistence.ContactProvider";
     // ID für diesen Content Provider
-    public static String AUTHORITY = "de.thm.ap.records.cp";
+    public static String AUTHORITY = "de.thm.ap";
     private static final String RECORD_PATH = "records";
     private static UriMatcher URI_MATCHER;
     private static final int RECORDS = 1;

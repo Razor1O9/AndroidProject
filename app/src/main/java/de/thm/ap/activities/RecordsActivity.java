@@ -3,7 +3,9 @@ package de.thm.ap.activities;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ import de.thm.ap.persistence.RecordDAO;
  */
 
 public class RecordsActivity extends AppCompatActivity {
+    private static final String TAG = RecordsActivity.class.getName();
     private ListView recordsListView;
     private List<Record> records = new ArrayList<>();
     private List<Record> selectedRecords = new ArrayList<>();
@@ -48,6 +51,16 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
+        // Get data from content provider
+        Uri uri = Uri.parse("content://de.thm.ap/records");
+        ContentResolver cr = getContentResolver();
+        String[] projection = {"id", "moduleName"};
+        Cursor c = cr.query(uri, projection, null, null, "moduleName");
+        if (c != null) {
+            while (c.moveToNext()) {
+                Log.i(TAG, "id: " + c.getLong(0) + " module name: " + c.getString(1));
+            }
+        }
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
         recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
