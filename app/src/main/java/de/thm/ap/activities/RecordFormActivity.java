@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ArrayAdapter;
 import android.view.View;
 
+import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
 
 import java.util.Optional;
@@ -139,13 +140,13 @@ public class RecordFormActivity extends AppCompatActivity {
             // persist record and finish activity
             if (isUpdate) {
 //                new RecordDAO(this).update(record);
-                database.recordDAO().update(record);
+                AppDatabase.getDb(this).recordDAO().update(record);
                 Intent returnIntent = new Intent();
                 setResult(RecordsActivity.RESULT_OK, returnIntent);
                 finish();
             } else {
 //                new RecordDAO(this).persist(record);
-                database.recordDAO().persist(record);
+                AppDatabase.getDb(this).recordDAO().persist(record);
                 Intent returnIntent = new Intent();
                 setResult(RecordsActivity.RESULT_OK, returnIntent);
                 finish();

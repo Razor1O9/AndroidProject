@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
+import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
@@ -38,17 +39,10 @@ import de.thm.ap.persistence.RecordDAO;
 public class RecordsActivity extends AppCompatActivity {
     private ListView recordsListView;
     private List<Record> records = new ArrayList<>();
-    private AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
-        .allowMainThreadQueries()
-        .build();
     private List<Record> selectedRecords = new ArrayList<>();
     private int selectedRecordCounter = 0;
     ArrayAdapter<Record> adapter;
 
-    @Database(entities = {Record.class}, version = 1)
-    public abstract class AppDatabase extends RoomDatabase {
-        public abstract RecordDAO recordDAO();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +84,13 @@ public class RecordsActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.menu_delete:
 //                        new RecordDAO(getBaseContext()).delete(selectedRecords);
-                        database.recordDAO().delete(selectedRecords);
+                        AppDatabase.getDb(RecordsActivity.this).recordDAO().delete(selectedRecords);
                         Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
                         adapter.clear();
 //                        records = new RecordDAO(getBaseContext()).findAll();
-                        records = database.recordDAO().findAll();
+                        records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
                         adapter.addAll(records);
                         return true;
                     case R.id.menu_send:
@@ -139,7 +133,7 @@ public class RecordsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        records = database.recordDAO().findAll();
+        records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
 
@@ -162,7 +156,7 @@ public class RecordsActivity extends AppCompatActivity {
             if(resultCode == RecordFormActivity.RESULT_OK){
                 adapter.clear();
 //                records = new RecordDAO(this).findAll();
-                records = database.recordDAO().findAll();
+                records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
                 adapter.addAll(records);
             }
             if (resultCode == RecordFormActivity.RESULT_CANCELED) {

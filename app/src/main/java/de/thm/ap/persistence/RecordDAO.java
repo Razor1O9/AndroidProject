@@ -26,5 +26,5 @@ public interface RecordDAO {
     Optional<Record> findById(int id);
 
     @Delete
-    int delete(List<Record> recordListToDelete);
+    void delete(List<Record> recordListToDelete);
 }
