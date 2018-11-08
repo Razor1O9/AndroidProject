@@ -41,7 +41,8 @@ public class ContentProviderTester extends AppCompatActivity {
                 allRecords = allRecords + "id: " + c.getLong(0) + " module name: " + c.getString(1) + "\n";
             }
         }
-        Log.i(TAG, allRecords);
+        TextView result = findViewById(R.id.record_name_id);
+        result.setText(allRecords);
     }
     // Callback-Methode
     @Override
