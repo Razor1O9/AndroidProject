@@ -8,8 +8,12 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -88,11 +92,23 @@ public class AppContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
         return 0;
     }
-
-    public void writeCSV(Context context) throws IOException {
+    public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
+        switch (mode){
+            case "r":
+                try {
+                    return ParcelFileDescriptor.open(writeCSV(getContext()), ParcelFileDescriptor.MODE_READ_ONLY);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            default:
+                throw new FileNotFoundException("");
+        }
+    }
+    public File writeCSV(Context context) throws IOException {
         String path = "records.csv";
         String outputCSV = "Insert Data"; // Default CSV Text
         int counter = 0; // Column number
+        OutputStreamWriter outputWriter = new OutputStreamWriter(Objects.requireNonNull(getContext()).openFileOutput(path, Context.MODE_PRIVATE));
 
         // Read Data
         List<Record> recordSamples = AppDatabase.getDb(getContext()).recordDAO().findAll();
@@ -102,17 +118,14 @@ public class AppContentProvider extends ContentProvider {
             outputCSV = outputCSV + counter + ";" + r.getModuleNum() + ";" + r.getModuleName() + r.getYear() + r.isSummerTerm() + r.getHalfWeight() + r.getCrp() + r.getMark() + "\n";
         }
         try {
-            OutputStreamWriter outputWriter = new OutputStreamWriter(Objects.requireNonNull(getContext()).openFileOutput(path, Context.MODE_PRIVATE));
             outputWriter.write(outputCSV);
             outputWriter.close();
-
-            //display file message for debug
-            Toast.makeText(context, "File saved",
-                    Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Log.d("Activity", "created: " + outputCSV);
+        return getContext().getFileStreamPath(path);
     }
 }
