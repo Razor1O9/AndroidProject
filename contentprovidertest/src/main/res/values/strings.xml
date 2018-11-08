@@ -2,4 +2,6 @@
     <string name="app_name">ContentProviderTest</string>
     <string name="button">Search Records</string>
     <string name="record_name">Nothing selected</string>
+    <string name="ContentResolverTestAll">ContentResolver Test_all</string>
+    <string name="defaultText">text</string>
 </resources>
