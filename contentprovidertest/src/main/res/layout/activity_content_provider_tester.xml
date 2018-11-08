@@ -7,8 +7,9 @@
     tools:context=".ContentProviderTester">
 
     <TextView
-        android:layout_width="201dp"
-        android:layout_height="64dp"
+        android:id="@+id/record_display"
+        android:layout_width="292dp"
+        android:layout_height="175dp"
         android:text="@string/record_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,6 +23,6 @@
         android:text="@string/button"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="135dp" />
+        tools:layout_editor_absoluteY="49dp" />
 
 </android.support.constraint.ConstraintLayout>
