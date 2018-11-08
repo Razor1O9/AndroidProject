@@ -20,7 +20,7 @@ public class ContentProviderTester extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_provider_tester);
         // Get data from content provider
-        Uri uri = Uri.parse("content://de.thm.ap/records");
+        Uri uri = Uri.parse("content://de.thm.ap.records.cp/records");
         ContentResolver cr = getContentResolver();
         String[] projection = {"id", "module_name"};
         Cursor c = cr.query(uri, projection, null, null, "module_name");
