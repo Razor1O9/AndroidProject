@@ -43,13 +43,9 @@ public class ContentProviderTester extends AppCompatActivity {
         TextView resultCSV = findViewById(R.id.resultCSV);
         result.setText(allRecords);
 
-
-        Uri uriCSV = Uri.parse("content://de.thm.ap.raw.record");
-        ContentResolver resolver = getContentResolver();
         try {
             StringBuilder content = new StringBuilder();
-            InputStream is = resolver.openInputStream(uriCSV);
-            is = resolver.openInputStream(uriCSV);
+            InputStream is = cr.openInputStream(uri);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line = reader.readLine();

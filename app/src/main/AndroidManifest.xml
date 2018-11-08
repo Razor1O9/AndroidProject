@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="de.thm.ap.persistence.AppContentProvider"
-            android:authorities="de.thm.ap.records.cp"
+            android:authorities="de.thm.ap"
             android:exported="true"
             android:permission="de.thm.ap.records.permission.ACCESS_PROVIDER" />
         <activity
