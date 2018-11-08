@@ -35,11 +35,13 @@ public class ContentProviderTester extends AppCompatActivity {
         ContentResolver cr = getContentResolver();
         String[] projection = {"id", "module_name"};
         Cursor c = cr.query(uri, projection, null, null, "module_name");
+        String allRecords = "";
         if (c != null) {
             while (c.moveToNext()) {
-                Log.i(TAG, "id: " + c.getLong(0) + " module name: " + c.getString(1));
+                allRecords = allRecords + "id: " + c.getLong(0) + " module name: " + c.getString(1) + "\n";
             }
         }
+        Log.i(TAG, allRecords);
     }
     // Callback-Methode
     @Override
