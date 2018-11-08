@@ -35,6 +35,12 @@ public class ContentProviderTester extends AppCompatActivity {
         result.setText(allRecords);
     }
 
+    public void onClickBtn(View v) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("list/record");
+        startActivityForResult(intent, 1); //TODO fix crash
+    }
+
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);

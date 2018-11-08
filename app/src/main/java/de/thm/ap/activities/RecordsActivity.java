@@ -138,12 +138,13 @@ public class RecordsActivity extends AppCompatActivity {
         records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
+        String action = getIntent().getAction();
 
         // On click -> edit List Item
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
-                if (Intent.ACTION_PICK.equals(getIntent().getAction())) {
+                if (Intent.ACTION_PICK.equals(action)) {
                     Record selectedRecord = (Record) parent.getItemAtPosition(position);
                     Intent returnIntent = new Intent();
                     returnIntent.setData(Uri.parse(String.valueOf(selectedRecord)));

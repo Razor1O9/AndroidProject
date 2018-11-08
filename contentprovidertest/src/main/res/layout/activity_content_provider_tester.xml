@@ -23,6 +23,7 @@
         android:text="@string/button"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="49dp" />
+        tools:layout_editor_absoluteY="49dp"
+        android:onClick="onClickBtn" />
 
 </android.support.constraint.ConstraintLayout>
