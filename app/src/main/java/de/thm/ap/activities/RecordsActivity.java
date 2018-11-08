@@ -1,38 +1,29 @@
 package de.thm.ap.activities;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
-import android.database.Cursor;
+
+import android.content.ContentProvider;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
+import de.thm.ap.persistence.AppContentProvider;
 import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
-
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Toast;
-import android.support.v7.view.ActionMode;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.MenuItem;
 
-import de.thm.ap.persistence.RecordDAO;
 
 /*
  / This class is the main class and displays all current records in a table
@@ -51,16 +42,7 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
-//        // Get data from content provider
-//        Uri uri = Uri.parse("content://de.thm.ap/records");
-//        ContentResolver cr = getContentResolver();
-//        String[] projection = {"id", "module_name"};
-//        Cursor c = cr.query(uri, projection, null, null, "module_name");
-//        if (c != null) {
-//            while (c.moveToNext()) {
-//                Log.i(TAG, "id: " + c.getLong(0) + " module name: " + c.getString(1));
-//            }
-//        }
+
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
         recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -154,11 +136,21 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
-                Record selectedRecord = (Record) parent.getItemAtPosition(position);
-                Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
-                startThis.putExtra("oldRecord", selectedRecord);
-                startActivityForResult(startThis,1 );
-                view.setSelected(true);
+                if () {
+                    Record selectedRecord = (Record) parent.getItemAtPosition(position);
+                    Intent returnIntent = new Intent();
+                    AppContentProvider.AUTHORITY
+                    returnIntent.setData(Uri.parse(String.valueOf(selectedRecord)));
+                    setResult(RecordsActivity.RESULT_OK, returnIntent);
+                    finish();
+
+                } else {
+                    Record selectedRecord = (Record) parent.getItemAtPosition(position);
+                    Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);
+                    startThis.putExtra("oldRecord", selectedRecord);
+                    startActivityForResult(startThis, 1);
+                    view.setSelected(true);
+                }
             }
         });
     }

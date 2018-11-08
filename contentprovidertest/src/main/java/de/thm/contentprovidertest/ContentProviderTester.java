@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class ContentProviderTester extends AppCompatActivity {
     private static final String TAG = ContentProviderTester.class.getName();
@@ -17,6 +19,17 @@ public class ContentProviderTester extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_provider_tester);
+        final Button button = findViewById(R.id.button_id);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("list/record");
+                startActivityForResult(intent, 1);
+            }
+        });
+
+
         // Get data from content provider
         Uri uri = Uri.parse("content://de.thm.ap/records");
         ContentResolver cr = getContentResolver();
@@ -28,6 +41,19 @@ public class ContentProviderTester extends AppCompatActivity {
             }
         }
     }
+    // Callback-Methode
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch (requestCode) {
+            case RESULT_OK:
+                    Uri recordData = data.getData();
+                    TextView result = findViewById(R.id.record_name_id);
+                    result.setText((CharSequence) recordData);
+            case RESULT_CANCELED:
+                return;
+        }
+    }
+}
     // ToDo Create a Button (Action-Click) with startActivityForResult
 
     /*
@@ -35,21 +61,3 @@ public class ContentProviderTester extends AppCompatActivity {
     Action Pick
     Data: list/record
      */
-//    void onButtonClick(View button) {
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-//        startActivityForResult(intent, 1);
-//
-//        intent.setClassName(ContentProviderTester.this, de.thm.ap.activities.RecordsActivity.class.getName());
-//        startActivityForResult(intent, PICK_BOOKMARK);
-//
-//        // Callback-Methode
-//        void onActivityResult ( int requestCode, int resultCode, Intent data){
-//            switch (requestCode) {
-//                case 1:
-//                    Uri contactData = data.getData();
-//                    // read selected contact from URI
-//            }
-//        }
-//    }
-}

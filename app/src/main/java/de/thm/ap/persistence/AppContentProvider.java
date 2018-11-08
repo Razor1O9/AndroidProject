@@ -18,9 +18,9 @@ public class AppContentProvider extends ContentProvider {
 
     static {
         URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
-        // content://de.thm.ap.records.cp/records
+        // content://de.thm.ap.records/records
         URI_MATCHER.addURI(AUTHORITY, RECORD_PATH, RECORDS);
-        // content://de.thm.ap.records.cp/records/# (# Nummernplatzhalter)
+        // content://de.thm.ap.records/records/# (# Nummernplatzhalter)
         URI_MATCHER.addURI(AUTHORITY, RECORD_PATH + "/#", RECORD_ID);
     }
 
