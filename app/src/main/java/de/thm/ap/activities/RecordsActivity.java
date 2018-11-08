@@ -150,7 +150,6 @@ public class RecordsActivity extends AppCompatActivity {
                     returnIntent.setData(Uri.parse(String.valueOf(selectedRecord)));
                     setResult(RecordsActivity.RESULT_OK, returnIntent);
                     finish();
-
                 } else {
                     Record selectedRecord = (Record) parent.getItemAtPosition(position);
                     Intent startThis = new Intent(view.getContext(), RecordFormActivity.class);

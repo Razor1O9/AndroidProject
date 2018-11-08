@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="de.thm.ap.persistence.AppContentProvider"
-            android:authorities="de.thm.ap.records.cp"
+            android:authorities="de.thm.ap"
             android:exported="true"
             android:permission="de.thm.ap.records.permission.ACCESS_PROVIDER" />
         <activity
@@ -26,16 +26,15 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="vnd.android.cursor.item/vnd.thm.ap.record"/>
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme = "http"/>
+                <data android:scheme = "https"/>
+                <data android:mimeType = "list/record" />
             </intent-filter>
+
         </activity>
         <activity android:name=".activities.RecordFormActivity">
         </activity>
-
-
-</application>
-
-
+    </application>
 </manifest>
