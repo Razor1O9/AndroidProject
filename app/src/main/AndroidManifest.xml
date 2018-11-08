@@ -25,7 +25,9 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="vnd.android.cursor.item/vnd.thm.ap.record"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -70,7 +70,7 @@ public class ContentProviderTester extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://de.thm.ap.records.cp/records"));
 //        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("list/record");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_PICK);
         startActivityForResult(intent, 1); //TODO fix crash
     }
 
