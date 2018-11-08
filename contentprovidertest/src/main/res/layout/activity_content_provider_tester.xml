@@ -37,12 +37,10 @@
         android:layout_marginTop="49dp"
         android:layout_marginBottom="142dp"
         android:text="@string/button"
-<<<<<<< Updated upstream
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="94dp"
         tools:layout_editor_absoluteY="49dp"
-        android:onClick="onClickBtn" />
-=======
+        android:onClick="onClickBtn"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +59,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
->>>>>>> Stashed changes
 
 </android.support.constraint.ConstraintLayout>
