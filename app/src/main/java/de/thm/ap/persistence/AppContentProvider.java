@@ -4,9 +4,34 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.db.SupportSQLiteQueryBuilder;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.thm.ap.R;
+import de.thm.ap.records.model.Record;
+import de.thm.ap.activities.RecordsActivity;
+
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class AppContentProvider extends ContentProvider {
     // ID für diesen Content Provider
@@ -78,5 +103,35 @@ public class AppContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
         return 0;
+    }
+
+    public void writeCSV(Context context) throws IOException {
+        String path = "res/raw/data.csv";
+        FileOutputStream fileos = context.openFileOutput(path, MODE_PRIVATE);
+        FileInputStream fileis = context.openFileInput(path);
+
+        String outputCSV = "Insert Data"; // Default CSV Text
+        int counter = 0; // Column number
+
+        // Read Data
+        List<Record> recordSamples = AppDatabase.getDb(getContext()).recordDAO().findAll();
+        for (Record r : recordSamples) {
+            counter++;
+            // writes Data into the Text
+            outputCSV = outputCSV + counter + ";" + r.getModuleNum() + ";" + r.getModuleName() + r.getYear() + r.isSummerTerm() + r.getHalfWeight() + r.getCrp() + r.getMark() + "\n";
+        }
+        try {
+            OutputStreamWriter outputWriter = new OutputStreamWriter(fileos);
+            outputWriter.write(outputCSV);
+            outputWriter.close();
+
+            //display file message for debug
+            Toast.makeText(context, "File saved",
+                    Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("Activity", "created: " + outputCSV);
     }
 }

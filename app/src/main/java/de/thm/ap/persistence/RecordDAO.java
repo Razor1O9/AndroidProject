@@ -22,7 +22,7 @@ public interface RecordDAO {
     @Update
     int update(Record record);
 
-    @Query("SELECT * FROM record WHERE id = :id") //TODO Macht das Sinn?
+    @Query("SELECT * FROM record WHERE id = :id")
     Optional<Record> findById(int id);
 
     @Delete

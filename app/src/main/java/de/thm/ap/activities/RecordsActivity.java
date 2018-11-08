@@ -6,11 +6,13 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.persistence.AppContentProvider;
 import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
+
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -20,8 +22,11 @@ import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.MenuItem;
 
 
@@ -61,6 +66,7 @@ public class RecordsActivity extends AppCompatActivity {
                     selectedRecords.remove(records.get(position));
                 }
             }
+
             @Override
             public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
                 mode.getMenuInflater().inflate(R.menu.context_menu, menu);
@@ -80,7 +86,7 @@ public class RecordsActivity extends AppCompatActivity {
                     case R.id.menu_delete:
 //                        new RecordDAO(getBaseContext()).delete(selectedRecords);
                         AppDatabase.getDb(RecordsActivity.this).recordDAO().delete(selectedRecords);
-                        Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gelöscht", Toast.LENGTH_SHORT).show();
                         selectedRecordCounter = 0;
                         mode.finish(); // Action picked, so close the CAB
                         adapter.clear();
@@ -112,7 +118,7 @@ public class RecordsActivity extends AppCompatActivity {
                         } catch (android.content.ActivityNotFoundException ex) {
                             Toast.makeText(RecordsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gesendet",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), selectedRecordCounter + " Elemente gesendet", Toast.LENGTH_SHORT).show();
                         mode.finish(); // Action picked, so close the CAB
                         return true;
                     default:
@@ -125,19 +131,26 @@ public class RecordsActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, records);
         recordsListView.setAdapter(adapter);
+        AppContentProvider instance = new AppContentProvider();
+        try {
+            instance.writeCSV(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // On click -> edit List Item
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
                 AppContentProvider instance = new AppContentProvider();
-                if (Intent.ACTION_PICK.equals(getIntent().getAction())) { 
+                if (Intent.ACTION_PICK.equals(getIntent().getAction())) {
                     Record selectedRecord = (Record) parent.getItemAtPosition(position);
                     Intent returnIntent = new Intent();
                     returnIntent.setData(Uri.parse(String.valueOf(selectedRecord)));
@@ -158,7 +171,7 @@ public class RecordsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            if(resultCode == RecordFormActivity.RESULT_OK){
+            if (resultCode == RecordFormActivity.RESULT_OK) {
                 adapter.clear();
 //                records = new RecordDAO(this).findAll();
                 records = AppDatabase.getDb(RecordsActivity.this).recordDAO().findAll();
