@@ -31,13 +31,13 @@ public class ContentProviderTester extends AppCompatActivity {
         // Get data from content provider
         Uri uri = Uri.parse("content://de.thm.ap.records.cp/records");
         ContentResolver cr = getContentResolver();
-        String[] projection = {"id", "module_name", "module_number"};
+        String[] projection = {"id", "module_name"};
         Cursor c = cr.query(uri, projection, null, null, "module_name");
 
         String allRecords = "";
         if (c != null) {
             while (c.moveToNext()) {
-                allRecords = allRecords + "id: " + c.getLong(0) + " module name: " + c.getString(1) + " module number: " + c.getString(2) + "\n";
+                allRecords = allRecords + "id: " + c.getLong(0) + " module name: " + c.getString(1) + "\n";
             }
         }
         TextView result = findViewById(R.id.record_display);
