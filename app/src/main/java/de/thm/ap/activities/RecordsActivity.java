@@ -51,16 +51,16 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
-        // Get data from content provider
-        Uri uri = Uri.parse("content://de.thm.ap/records");
-        ContentResolver cr = getContentResolver();
-        String[] projection = {"id", "moduleName"};
-        Cursor c = cr.query(uri, projection, null, null, "moduleName");
-        if (c != null) {
-            while (c.moveToNext()) {
-                Log.i(TAG, "id: " + c.getLong(0) + " module name: " + c.getString(1));
-            }
-        }
+//        // Get data from content provider
+//        Uri uri = Uri.parse("content://de.thm.ap/records");
+//        ContentResolver cr = getContentResolver();
+//        String[] projection = {"id", "module_name"};
+//        Cursor c = cr.query(uri, projection, null, null, "module_name");
+//        if (c != null) {
+//            while (c.moveToNext()) {
+//                Log.i(TAG, "id: " + c.getLong(0) + " module name: " + c.getString(1));
+//            }
+//        }
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
         recordsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
