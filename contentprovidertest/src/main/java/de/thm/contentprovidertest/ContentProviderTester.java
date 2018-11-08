@@ -67,7 +67,9 @@ public class ContentProviderTester extends AppCompatActivity {
     }
 
     public void onClickBtn(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://de.thm.ap.records.cp/records"));
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        //intent.setType("vnd.android.cursor.dir/vnd.thm.ap.record"); <- eher so?
         intent.setType("list/record");
         startActivityForResult(intent, 1); //TODO fix crash
     }
