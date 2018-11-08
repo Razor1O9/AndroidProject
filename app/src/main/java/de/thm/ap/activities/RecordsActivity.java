@@ -136,10 +136,10 @@ public class RecordsActivity extends AppCompatActivity {
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item
-                if () {
+                AppContentProvider instance = new AppContentProvider();
+                if (Intent.ACTION_PICK.equals(getIntent().getAction())) { 
                     Record selectedRecord = (Record) parent.getItemAtPosition(position);
                     Intent returnIntent = new Intent();
-                    AppContentProvider.AUTHORITY
                     returnIntent.setData(Uri.parse(String.valueOf(selectedRecord)));
                     setResult(RecordsActivity.RESULT_OK, returnIntent);
                     finish();

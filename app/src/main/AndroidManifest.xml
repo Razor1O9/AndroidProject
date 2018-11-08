@@ -5,7 +5,11 @@
     <permission
         android:name="de.thm.ap.permission.ACCESS_PROVIDER"
         android:protectionLevel="normal" />
-
+    <provider
+        android:name=".AppContentProvider"
+        android:authorities="de.thm.ap.records.cp"
+        android:exported="true"
+        android:permission="de.thm.ap.records.permission.ACCESS_PROVIDER" />
 
 
     <application
