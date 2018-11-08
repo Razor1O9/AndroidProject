@@ -1,9 +1,11 @@
 package de.thm.contentprovidertest;
 
+import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,9 +67,23 @@ public class ContentProviderTester extends AppCompatActivity {
     }
 
     public void onClickBtn(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://de.thm.ap.records.cp/records"));
+//        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("list/record");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1); //TODO fix crash
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                Uri uri = Uri.parse("content://de.thm.ap.records.cp/record");
+                ContentResolver cr = getContentResolver();
+                String[] projection = {"id", "module_name", "module_number"};
+                Cursor c = cr.query(uri, projection, null, null, "module_name");
+                Log.i("test",c.getString(1));
+            }
+        }
     }
 }
 
