@@ -106,7 +106,7 @@ public class AppContentProvider extends ContentProvider {
     }
     public File writeCSV(Context context) throws IOException {
         String path = "records.csv";
-        String outputCSV = "Insert Data"; // Default CSV Text
+        String outputCSV = ""; // Default CSV Text
         int counter = 0; // Column number
         OutputStreamWriter outputWriter = new OutputStreamWriter(Objects.requireNonNull(getContext()).openFileOutput(path, Context.MODE_PRIVATE));
 
