@@ -7,6 +7,7 @@
     tools:context=".ContentProviderTester">
 
     <TextView
+        android:id="@+id/record_display"
         android:layout_width="201dp"
         android:layout_height="64dp"
         android:text="@string/record_name"
