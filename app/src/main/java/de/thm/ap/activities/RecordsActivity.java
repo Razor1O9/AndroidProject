@@ -2,6 +2,7 @@ package de.thm.ap.activities;
 
 
 import android.content.ContentProvider;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,7 @@ import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -193,47 +195,71 @@ public class RecordsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_stats:
-                new StatsTask(this).execute(records);
+                //noinspection unchecked
+                new StatsTask(RecordsActivity.this).execute(records);
 
 
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private class StatsTask extends AsyncTask<List<Record>, Void, Stats> {
-        public StatsTask(RecordsActivity recordsActivity) {
+    /**
+     * Uses a List<Record> for calculation
+     * Returns the Stats of this list (Return Value for doInBackground)
+     */
 
+    private class StatsTask extends AsyncTask<List<Record>, Void, Stats> {
+
+        private Context context;
+        private ProgressBar progressBar;
+
+        public StatsTask(Context context) {
+            this.context = context;
         }
 
         @Override
         protected void onPreExecute() {
             // start progress bar
-            ProgressBar progressBar = findViewById(R.id.indeterminateBar);
+            progressBar = findViewById(R.id.indeterminateBar);
             progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
         }
 
+        /**
+         * Creates an object of Stats.class
+         * Stats.class calculates all stats.
+         * @param recordList
+         * @return stats Object
+         */
         @Override
         protected Stats doInBackground(List<Record>... recordList) {
-            return null;
+            Stats stats = new Stats(recordList[0]);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return stats;
         }
 
         @Override
         protected void onPostExecute(Stats stats) {
             // stop progress bar
             // show result dialog
-            AlertDialog.Builder statBuilder = new AlertDialog.Builder(RecordsActivity.this);
+            AlertDialog.Builder statBuilder = new AlertDialog.Builder(context);
             //AlertDialog statDialog = statBuilder.create();
             statBuilder.setTitle(getString(R.string.statistics_header));
             statBuilder.setMessage(
-                    getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
-                            getString(R.string.statistics_halfweight_record_count) + " " + stats.getSumHalfWeighted() + "\n" +
-                            getString(R.string.statistics_sum) + " " + stats.getSumCrp() + "\n" +
-                            getString(R.string.statistics_crp_left) + " " + stats.getCrpToEnd() + "\n" +
-                            getString(R.string.statistics_average) + " " + stats.getAverageMark() + "\n"
+                    context.getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
+                            context.getString(R.string.statistics_halfweight_record_count) + " " + stats.getSumHalfWeighted() + "\n" +
+                            context.getString(R.string.statistics_sum) + " " + stats.getSumCrp() + "\n" +
+                            context.getString(R.string.statistics_crp_left) + " " + stats.getCrpToEnd() + "\n" +
+                            context.getString(R.string.statistics_average) + " " + stats.getAverageMark() + "\n"
 
             );
             statBuilder.setNeutralButton(R.string.statistics_close_button, null);
             statBuilder.show();
+            progressBar.setVisibility(View.GONE);
         }
 
     }
