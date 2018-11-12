@@ -3,6 +3,7 @@ package de.thm.ap.activities;
 
 import android.content.ContentProvider;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -191,20 +193,50 @@ public class RecordsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_stats:
-                AlertDialog.Builder statBuilder = new AlertDialog.Builder(this);
-                //AlertDialog statDialog = statBuilder.create();
-                statBuilder.setTitle(getString(R.string.statistics_header));
-                statBuilder.setMessage(
-                        getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
-                                getString(R.string.statistics_halfweight_record_count) + " " + statistics.getSumHalfWeighted() + "\n" +
-                                getString(R.string.statistics_sum) + " " + statistics.getSumCrp() + "\n" +
-                                getString(R.string.statistics_crp_left) + " " + statistics.getCrpToEnd() + "\n" +
-                                getString(R.string.statistics_average) + " " + statistics.getAverageMark() + "\n"
+                new StatsTask(this).execute(records);
 
-                );
-                statBuilder.setNeutralButton(R.string.statistics_close_button, null);
-                statBuilder.show();
+
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private class StatsTask extends AsyncTask<List<Record>, Void, Stats> {
+        public StatsTask(RecordsActivity recordsActivity) {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // start progress bar
+            ProgressBar progressBar = findViewById(R.id.indeterminateBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Stats doInBackground(List<Record>... recordList) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Stats stats) {
+            // stop progress bar
+            // show result dialog
+            AlertDialog.Builder statBuilder = new AlertDialog.Builder(RecordsActivity.this);
+            //AlertDialog statDialog = statBuilder.create();
+            statBuilder.setTitle(getString(R.string.statistics_header));
+            statBuilder.setMessage(
+                    getString(R.string.statistics_record_count) + " " + records.size() + "\n" +
+                            getString(R.string.statistics_halfweight_record_count) + " " + stats.getSumHalfWeighted() + "\n" +
+                            getString(R.string.statistics_sum) + " " + stats.getSumCrp() + "\n" +
+                            getString(R.string.statistics_crp_left) + " " + stats.getCrpToEnd() + "\n" +
+                            getString(R.string.statistics_average) + " " + stats.getAverageMark() + "\n"
+
+            );
+            statBuilder.setNeutralButton(R.string.statistics_close_button, null);
+            statBuilder.show();
+        }
+
+    }
 }
+
+
