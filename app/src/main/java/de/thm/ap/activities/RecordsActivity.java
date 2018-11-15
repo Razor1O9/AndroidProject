@@ -10,6 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.persistence.AppContentProvider;
