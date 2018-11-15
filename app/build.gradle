@@ -39,7 +39,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
 
     def work_version = "1.0.0-alpha11"
-    implementation = "android.arch.work:work-runtime:$work_version"
+    implementation "android.arch.work:work-runtime:$work_version"
 
     implementation 'org.jetbrains:annotations:15.0'
 }
