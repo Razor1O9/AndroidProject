@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.constraint.Constraints;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.persistence.AppContentProvider;
 import de.thm.ap.persistence.AppDatabase;
+import de.thm.ap.persistence.UpdateModulesWorker;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
@@ -30,6 +32,7 @@ import android.widget.ArrayAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.view.MenuItem;
 
@@ -51,6 +54,20 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .build();
+
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest
+                .Builder(UpdateModulesWorker.class, 30, TimeUnit.DAYS)
+                .setConstraints(constraints).build();
+
+        WorkManager
+                .getInstance()
+                .enqueueUniquePeriodicWork("update modules", ExistingPeriodicWorkPolicy.KEEP, workRequest);
+
 
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
