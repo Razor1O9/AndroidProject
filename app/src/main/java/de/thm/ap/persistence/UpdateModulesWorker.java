@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
@@ -16,6 +17,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import de.thm.ap.activities.RecordsActivity;
+import de.thm.ap.persistence.AppDatabase;
 
 import javax.xml.transform.Result;
 
@@ -39,7 +43,7 @@ public class UpdateModulesWorker extends Worker {
         InputStream in = null;
 
         NotificationManager notifyManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if(android.os.Build.VERSION.SDK_INT>= android.os.Build.VERSION_CODES.O) {
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,"Channel name", NotificationManager.IMPORTANCE_LOW);
             notifyManager.createNotificationChannel(channel);
         }
@@ -60,8 +64,8 @@ public class UpdateModulesWorker extends Worker {
 
                 in = connection.getInputStream();
                 Module[] modules = new Gson().fromJson(new InputStreamReader(in), Module[].class);
-                moduleDAO.deleteAll();
-                moduleDAO.persistAll(modules);
+                AppDatabase.getModuleDb(this).moduleDAO.deleteAll();
+                AppDatabase.getModuleDb(this).moduleDAO.persistAll(modules);
                 sharedPrefs.edit().putLong("lastModified", connection.getLastModified()).apply();
                 notifyBuilder.setContentText(getApplicationContext()
                         .getString(R.string.loaded_new_data_success))

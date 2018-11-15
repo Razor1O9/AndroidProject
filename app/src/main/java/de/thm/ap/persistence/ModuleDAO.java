@@ -17,7 +17,7 @@ public interface ModuleDAO {
     List<Record> findAllModules();
 
     @Insert
-    void persistModule(Record record);
+    void persistAll(Record record);
 
     @Update
     int updateModule(Record record);
