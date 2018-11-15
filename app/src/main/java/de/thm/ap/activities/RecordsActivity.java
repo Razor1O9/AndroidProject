@@ -59,15 +59,15 @@ public class RecordsActivity extends AppCompatActivity {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .setRequiresBatteryNotLow(true)
                 .build();
-
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest
                 .Builder(UpdateModulesWorker.class, 30, TimeUnit.DAYS)
                 .setConstraints(constraints).build();
-
         WorkManager
                 .getInstance()
                 .enqueueUniquePeriodicWork("update modules", ExistingPeriodicWorkPolicy.KEEP, workRequest);
 
+        //TODO: wenn keine internetverbindung besteht und app das erste mal gestartet wird -> lade json datei in DB
+        //TODO:
 
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
