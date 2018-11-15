@@ -29,12 +29,14 @@ import de.thm.ap.R;
 import de.thm.ap.records.model.Module;
 
 public class UpdateModulesWorker extends Worker {
+    Context rootContext;
     private static final String MODULES_URL ="https://homepages.thm.de/~hg10187/modules.json";
     private static final int NOTIFICATION_ID=42;
     private static final String CHANNEL_ID="4711";
 
     public UpdateModulesWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+        rootContext = context;
     }
 
     public Result doWork() {
@@ -64,8 +66,8 @@ public class UpdateModulesWorker extends Worker {
 
                 in = connection.getInputStream();
                 Module[] modules = new Gson().fromJson(new InputStreamReader(in), Module[].class);
-                AppDatabase.getModuleDb(this).moduleDAO.deleteAll();
-                AppDatabase.getModuleDb(this).moduleDAO.persistAll(modules);
+                AppDatabase.getModuleDb(rootContext).moduleDAO().deleteAllModules();
+                AppDatabase.getModuleDb(rootContext).moduleDAO().persistAllModules(modules);
                 sharedPrefs.edit().putLong("lastModified", connection.getLastModified()).apply();
                 notifyBuilder.setContentText(getApplicationContext()
                         .getString(R.string.loaded_new_data_success))
