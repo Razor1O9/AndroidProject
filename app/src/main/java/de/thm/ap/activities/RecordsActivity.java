@@ -1,28 +1,25 @@
 package de.thm.ap.activities;
 
 
-import android.content.ContentProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.constraint.Constraints;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
-import de.thm.ap.persistence.AppContentProvider;
 import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.persistence.UpdateModulesWorker;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,7 +30,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
