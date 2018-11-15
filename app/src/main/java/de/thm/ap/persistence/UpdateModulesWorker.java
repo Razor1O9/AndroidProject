@@ -4,7 +4,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+
+import com.google.gson.Gson;
+
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +20,7 @@ import java.net.URL;
 import javax.xml.transform.Result;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 import de.thm.ap.R;
 import de.thm.ap.records.model.Module;
 
@@ -22,6 +28,10 @@ public class UpdateModulesWorker extends Worker {
     private static final String MODULES_URL ="https://homepages.thm.de/~hg10187/modules.json";
     private static final int NOTIFICATION_ID=42;
     private static final String CHANNEL_ID="4711";
+
+    public UpdateModulesWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
 
     public Result doWork() {
         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("modules", Context.MODE_PRIVATE);
