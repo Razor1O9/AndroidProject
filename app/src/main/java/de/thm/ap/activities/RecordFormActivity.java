@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import de.thm.ap.R;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -12,8 +13,10 @@ import android.widget.ArrayAdapter;
 import android.view.View;
 
 import de.thm.ap.persistence.AppDatabase;
+import de.thm.ap.records.model.Module;
 import de.thm.ap.records.model.Record;
 
+import java.util.List;
 import java.util.Optional;
 
 import android.view.MenuItem;
@@ -159,6 +162,26 @@ public class RecordFormActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.action_module_pick:
+
+                List<Module> modules = AppDatabase.getModuleDb(this).moduleDAO().findAllModules();
+                String[] moduleNames = new String[modules.size()];
+                for (int idx = 0; idx < modules.size(); ++idx)
+                    moduleNames[idx] = modules.get(idx).toString();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(RecordFormActivity.this);
+                builder.setTitle(R.string.module_picker).setItems(moduleNames, (dialog, which) -> {
+                    Module module = modules.get(which);
+                    moduleNum.setText(module.getNr());
+                    moduleName.setText(module.getName());
+
+                    creditPoints.setText(module.getCrp());
+
+
+                });
+                builder.create();
+                builder.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

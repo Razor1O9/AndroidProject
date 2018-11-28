@@ -13,15 +13,15 @@ import de.thm.ap.records.model.Record;
 
 @Dao
 public interface ModuleDAO {
-    @Query("SELECT * FROM record")
-    List<Record> findAllModules();
+    @Query("SELECT * FROM module")
+    List<Module> findAllModules();
 
     @Insert
-    void persistAllModules(Module[] record);
+    void persistAllModules(Module[] modules);
 
-    @Query("SELECT * FROM record WHERE id = :id")
-    Optional<Record> findModuleById(int id);
+    @Query("SELECT * FROM module WHERE id = :id")
+    Optional<Module> findModuleById(int id);
 
-    @Delete
+    @Query("DELETE FROM module")
     void deleteAllModules();
 }

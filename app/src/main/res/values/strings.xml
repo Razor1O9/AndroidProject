@@ -34,6 +34,7 @@
     <string name="hint_record_cp">Credit Points</string>
     <string name="mark_not_valid">Note ungültig</string>
     <string name="statistics_close_button">Schließen</string>
+    <string name="module_picker">Modul auswählen</string>
     <string name="check_server_data" />
     <string name="refresh_modules" />
     <string name="loading_new_data" />

@@ -2,6 +2,7 @@ package de.thm.ap.activities;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -12,11 +13,13 @@ import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import de.thm.ap.R;
 import de.thm.ap.logic.Stats;
 import de.thm.ap.persistence.AppDatabase;
 import de.thm.ap.persistence.UpdateModulesWorker;
+import de.thm.ap.records.model.Module;
 import de.thm.ap.records.model.Record;
 
 import android.content.Intent;
@@ -30,11 +33,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.view.MenuItem;
+
+import com.google.gson.Gson;
 
 
 /*
@@ -42,7 +49,8 @@ import android.view.MenuItem;
  */
 
 public class RecordsActivity extends AppCompatActivity {
-    private static final String TAG = RecordsActivity.class.getName();
+    SharedPreferences prefs = null;
+    //private static final String TAG = RecordsActivity.class.getName();
     private ListView recordsListView;
     private List<Record> records = new ArrayList<>();
     private List<Record> selectedRecords = new ArrayList<>();
@@ -53,6 +61,7 @@ public class RecordsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        prefs = getSharedPreferences("app", MODE_PRIVATE);
         setContentView(R.layout.activity_records);
 
         Constraints constraints = new Constraints.Builder()
@@ -62,12 +71,29 @@ public class RecordsActivity extends AppCompatActivity {
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest
                 .Builder(UpdateModulesWorker.class, 30, TimeUnit.DAYS)
                 .setConstraints(constraints).build();
-        WorkManager
-                .getInstance()
+        WorkManager manager = WorkManager.getInstance();
+        manager
                 .enqueueUniquePeriodicWork("update modules", ExistingPeriodicWorkPolicy.KEEP, workRequest);
 
-        //TODO: wenn keine internetverbindung besteht und app das erste mal gestartet wird -> lade json datei in DB
-        //TODO:
+        manager.getWorkInfoByIdLiveData(workRequest.getId())
+                .observe(this, workStatus -> {
+                    if (workStatus != null) {
+                        if (workStatus.getState().isFinished()) {
+                            if (workStatus.getState() == WorkInfo.State.FAILED) {
+
+                                if (prefs.getBoolean("firstturn", true)) {
+                                    InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.modules));
+                                    Module[] modules = new Gson().fromJson(reader, Module[].class);
+                                    AppDatabase.getModuleDb(this).moduleDAO().persistAllModules(modules);
+                                }
+
+                            }
+                        }
+
+                }
+
+        });
+
 
         recordsListView = findViewById(R.id.records_list);
         recordsListView.setEmptyView(findViewById(R.id.records_list_empty));
