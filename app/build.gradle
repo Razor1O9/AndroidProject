@@ -40,5 +40,5 @@ dependencies {
     def work_version = "1.0.0-alpha11"
     implementation "android.arch.work:work-runtime:$work_version"
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    implementation 'commons-io:commons-io:2.4'
 }

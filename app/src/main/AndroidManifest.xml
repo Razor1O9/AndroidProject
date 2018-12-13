@@ -5,6 +5,9 @@
     <permission
         android:name="de.thm.ap.records.permission.ACCESS_PROVIDER"
         android:protectionLevel="normal" />
+    <permission
+        android:name="de.thm.ap.records.permission.INTERNET" />
+
     <application
 
         android:allowBackup="true"
